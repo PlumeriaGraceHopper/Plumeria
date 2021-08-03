@@ -1,6 +1,6 @@
 'use strict'
 
-const {db, models: {User} } = require('../server/db')
+const {db, models: {User, Flower} } = require('../server/db')
 
 /**
  * seed - this function clears the database, updates tables to
@@ -12,19 +12,24 @@ async function seed() {
 
   // Creating Users
   const users = await Promise.all([
-    User.create({ username: 'cody', password: '123' }),
-    User.create({ username: 'murphy', password: '123' }),
+    User.create({ email: 'nicky@plumeria.com', password: '123' , admin: true}),
+    User.create({ email: 'caitlin@plumeria.com', password: '123' , admin: true }),
+    User.create({ email: 'jazmin@plumeria.com', password: '123' , admin: true}),
+    User.create({ email: 'kathleen@plumeria.com', password: '123' , admin: true}),
+    User.create({ email: 'orlando@plumeria.com', password: '123' , admin: false}),
+    User.create({ email: 'denesse@plumeria.com', password: '123' , admin: false})
   ])
 
-  console.log(`seeded ${users.length} users`)
-  console.log(`seeded successfully`)
-  return {
-    users: {
-      cody: users[0],
-      murphy: users[1]
-    }
-  }
+  //Creating Flowers
+  const flowers = await Promise.all([
+    Flower.create({name: 'Plumeria', price: 10 , description: 'The most beautiful flower.', image: '' , color: 'pink' , quantity: 10}),
+    Flower.create({name: 'Lily', price: 15 , description: 'The most small flower.', image: '' , color: 'white' , quantity: 20}),
+    Flower.create({name: 'Wysteria', price: 20 , description: 'The most smelly flower.', image: '' , color: 'purple' , quantity: 8}),
+    Flower.create({name: 'Hydrangea', price: 12 , description: 'The most tall flower.', image: '' , color: '' , quantity: 18})
+  ])
 }
+
+  console.log(`seeded successfully O:)`)
 
 /*
  We've separated the `seed` function from the `runSeed` function.

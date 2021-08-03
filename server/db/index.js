@@ -4,11 +4,15 @@ const db = require('./db')
 
 const User = require('./models/User')
 
-//associations could go here!
+const Flower = require('./models/Flower')
+
+User.belongsToMany(Flower, {through:'usersflowers'});
+Flower.belongsToMany(User, {through:'usersflowers'});
 
 module.exports = {
   db,
   models: {
     User,
+    Flower
   },
 }
