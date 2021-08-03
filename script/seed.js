@@ -1,6 +1,7 @@
 'use strict'
 
-const {db, models: {User, Flower} } = require('../server/db')
+const {db, models: {User, Flower, Order, OrderDetail} } = require('../server/db')
+// const { Order, OrderDetail } = require('../server/db/models/OrderDetail')
 
 /**
  * seed - this function clears the database, updates tables to
@@ -20,6 +21,8 @@ async function seed() {
     User.create({ email: 'denesse@plumeria.com', password: '123' , admin: false})
   ])
 
+  const [nicky, caitlin, jazmin, kathleen, orlando, denesse] = users;
+
   //Creating Flowers
   const flowers = await Promise.all([
     Flower.create({name: 'Plumeria', price: 10 , description: 'The most beautiful flower.', image: '' , color: 'pink' , quantity: 10}),
@@ -27,6 +30,36 @@ async function seed() {
     Flower.create({name: 'Wysteria', price: 20 , description: 'The most smelly flower.', image: '' , color: 'purple' , quantity: 8}),
     Flower.create({name: 'Hydrangea', price: 12 , description: 'The most tall flower.', image: '' , color: '' , quantity: 18})
   ])
+
+  const [plumeria, lily, wysteria, hydrangea] = flowers; 
+
+  const orderDetails = await Promise.all([
+    OrderDetail.create({quantity: 2}),
+    OrderDetail.create({quantity: 5}),
+    OrderDetail.create({quantity: 10})
+  ])
+
+  const [ orderDetail1, orderDetail2, orderDetail3 ] = orderDetails
+
+  const orders = await Promise.all([
+    Order.create({}),
+    Order.create({})
+  ])
+
+  const [order1, order2 ] = orders
+
+  await plumeria.addOrderDetail(orderDetail1);
+  await order1.addOrderDetail(orderDetail1);
+  await nicky.addOrder(order1);
+
+  await lily.addOrderDetail(orderDetail2);
+  await order1.addOrderDetail(orderDetail2);
+  await nicky.addOrder(order1);
+
+  await wysteria.addOrderDetail(orderDetail3);
+  await order2.addOrderDetail(orderDetail3);
+  await orlando.addOrder(order2);
+
 }
 
   console.log(`seeded successfully O:)`)

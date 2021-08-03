@@ -6,13 +6,20 @@ const User = require('./models/User')
 
 const Flower = require('./models/Flower')
 
-User.belongsToMany(Flower, {through:'usersflowers'});
-Flower.belongsToMany(User, {through:'usersflowers'});
+const { Order, OrderDetail } = require('./models/OrderDetail')
+
+
+
+User.hasMany(Order)
+Order.hasMany(OrderDetail)
+Flower.hasMany(OrderDetail)
 
 module.exports = {
   db,
   models: {
     User,
-    Flower
+    Flower,
+    Order,
+    OrderDetail
   },
 }
