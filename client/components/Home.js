@@ -1,12 +1,11 @@
-// import React from 'react'
-// import {connect} from 'react-redux'
-// import {Link} from 'react-router-dom'
+import React from "react";
 
-// render () {
-//   return (
-//     <div>
-//       {/* <Link></Link> */}
-//     </div>
-//   )
-// }
-// ;
+class Home extends React.Component {
+  render() {
+    return <div>
+        <h1>Welcome to Plumeria!</h1>
+    </div>;
+  }
+}
+
+export default Home

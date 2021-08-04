@@ -1,10 +1,19 @@
 body {
   font-family: Georgia, 'Times New Roman', Times, serif;
   background-color: rgb(255, 233, 237);
+  text-align: center;
+  display: flex;
+  align-content: space-between;
 }
 
 a {
   text-decoration: none;
+  color: black;
+  transition: 0.2s;
+}
+
+.flowerlink:hover {
+  color:rgb(255, 144, 164);
 }
 
 label {
@@ -21,11 +30,17 @@ form div {
   display: inline-block;
 }
 
-#allFlowers {
+.flower{
   display: flex;
   max-width: 1600px;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+#singleflower {
+  border: black 2px solid;
+  max-width: 500px;
+  text-align: center;
 }
 
 #flowerAF {
@@ -39,8 +54,17 @@ form div {
   justify-content: space-between;
 }
 
+.flowerImageMain {
+  opacity: 1;
+  transition: 0.2s;
+}
+
+.flowerImageMain:hover{
+  opacity: 0.6;
+}
+
 #addToCartButton {
-  width: 400px;
+  width: 500px;
   height: 50px;
   font-size: 20px;
   border: 2px solid black;
@@ -54,4 +78,9 @@ form div {
 
 #addToCartButton:hover{
   background-color: rgb(255, 144, 164);
+}
+
+#quantity {
+  height: 25px;
+  width: 75px;
 }
