@@ -8,9 +8,8 @@ import SingleFlower from "./components/SingleFlower";
 import Cart from "./components/Cart";
 import { me } from "./store";
 
-/**
- * COMPONENT
- */
+// COMPONENT
+ 
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData();
@@ -42,9 +41,8 @@ class Routes extends Component {
   }
 }
 
-/**
- * CONTAINER
- */
+// CONTAINER
+
 const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.

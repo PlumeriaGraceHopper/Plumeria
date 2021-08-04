@@ -10,7 +10,7 @@ export class Cart extends React.Component {
     render(){
         return(
             <div id="cart">
-                <h1>{this.props.cart[0].userId}</h1>
+                
             </div>
         )
     }

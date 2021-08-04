@@ -1,10 +1,10 @@
 import axios from 'axios'
 
-
+//constants
 const SET_FLOWERS= 'SET_FLOWERS'
 
 
-// ---- Set
+// action creators
 export const setFlowers = (flowers) => {
   return {
   type: SET_FLOWERS,
@@ -14,7 +14,7 @@ export const setFlowers = (flowers) => {
 
 
 
-// ---- Set
+// thunk creator
 export const fetchFlowers = () => {
   return async (dispatch) => {
     try {
@@ -26,7 +26,7 @@ export const fetchFlowers = () => {
   }
 };
 
-
+//reducer
 export default function allFlowersReducer ( state = [], action )  {
   switch (action.type) {
     case SET_FLOWERS:
