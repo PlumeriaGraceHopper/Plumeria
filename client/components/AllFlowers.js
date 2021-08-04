@@ -6,18 +6,9 @@ import { fetchFlowers } from '../store/AllFlowers';
 
 export class AllFlowers extends React.Component {
 
-//   constructor (props) {
-//     super(props)
-//     this.state = {
-//         loading: true
-//     }
-//   }
 
   componentDidMount () {
       this.props.getFlowers();
-    //   this.setState({
-    //     //   loading: false
-    //   })
   }
 
   render () {
@@ -27,10 +18,14 @@ export class AllFlowers extends React.Component {
           <h1>All Flowers </h1>
             <div>
                 { this.props.flowers.map(flower => {
-                    return <h1 key = {flower.id} > {flower.name} </h1>
+                    return ( <div key = {flower.id} >
+                        <h2> {flower.name} </h2>
+                        <div> <img src = {flower.image} /> </div>
+                        <h3> {flower.price } </h3>
+                        <h3> {flower.description } </h3>
+                    </div>)
+                    
                 }) }
-                {console.log("THIS IS PROPS", this.props)}
-                {console.log("THIS IS STATE", this.state)}
             </div>
         </div>
       )

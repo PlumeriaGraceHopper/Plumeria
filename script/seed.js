@@ -25,10 +25,10 @@ async function seed() {
 
   //Creating Flowers
   const flowers = await Promise.all([
-    Flower.create({name: 'Plumeria', price: 10 , description: 'The most beautiful flower.', image: '' , color: 'pink' , quantity: 10}),
-    Flower.create({name: 'Lily', price: 15 , description: 'The most small flower.', image: '' , color: 'white' , quantity: 20}),
-    Flower.create({name: 'Wysteria', price: 20 , description: 'The most smelly flower.', image: '' , color: 'purple' , quantity: 8}),
-    Flower.create({name: 'Hydrangea', price: 12 , description: 'The most tall flower.', image: '' , color: '' , quantity: 18})
+    Flower.create({name: 'Plumeria', price: 10 , description: 'The most beautiful flower.', image: "https://mauiplumeriagardens.com/431-home_default/lei-rainbow-plumeria-cutting.jpg" , color: 'pink' , quantity: 10}),
+    Flower.create({name: 'Lily', price: 15 , description: 'The most small flower.', image: "https://h2.commercev3.net/cdn.springhillnursery.com/images/400/64379A.jpg" , color: 'white' , quantity: 20}),
+    Flower.create({name: 'Wysteria', price: 20 , description: 'The most smelly flower.', image: "https://h2.commercev3.net/cdn.springhillnursery.com/images/400/64379A.jpg" , color: 'purple' , quantity: 8}),
+    Flower.create({name: 'Hydrangea', price: 12 , description: 'The most tall flower.' , color: '' , quantity: 18})
   ])
 
   const [plumeria, lily, wysteria, hydrangea] = flowers; 
