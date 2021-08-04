@@ -39,9 +39,7 @@ export const fetchFlowers = () => {
   return async (dispatch) => {
     try {
       const {data} = await axios.get('/api/flowers')
-      console.log('THIS IS THE DATA BEFORE DISPATCH:', data)
       dispatch(setFlowers(data));
-      console.log('THIS IS THE DATA AFTER DISPATCH: ', data)
     } catch (err) {
       console.log(err)
     }
