@@ -18,7 +18,7 @@ const Flower = db.define('flower', {
   },
   image: {
     type: Sequelize.TEXT,
-    defaultValue: "tbd.com"
+    defaultValue: "https://mauiplumeriagardens.com/431-home_default/lei-rainbow-plumeria-cutting.jpg"
   },
   color:{
     type: Sequelize.STRING
