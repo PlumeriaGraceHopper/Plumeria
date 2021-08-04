@@ -8,12 +8,13 @@ export class SingleFlower extends React.Component {
     }
 
     render(){
+      const { name, image, price, description, } = this.props.flower;
         return(
             <div id="singleflower">
-                <h2>{this.props.flower.name}</h2>
-                <div><img src={this.props.flower.image} /></div>
-                <h3>${this.props.flower.price}.99</h3>
-                <h3>{this.props.flower.description}</h3>
+                <h2>{name}</h2>
+                <div><img src={image} /></div>
+                <h3>${price/100}</h3>
+                <h3>{description}</h3>
                 <div id="quantitySelect">Quantity: <select name="quantity" id="quantity">
                           <option value="0">0</option>
                         </select></div>

@@ -9,7 +9,7 @@ const Flower = db.define('flower', {
     allowNull: false,
   },
   price: {
-    type: Sequelize.FLOAT,
+    type: Sequelize.INTEGER,
     allowNull: false,
   },
   description: {

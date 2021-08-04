@@ -1,7 +1,9 @@
 import axios from "axios";
 
+//constant
 const SET_SINGLE_FLOWER = "SET_SINGLE_FLOWER";
 
+//action creator
 export const setSingleFlower = flower => {
   return {
     type: SET_SINGLE_FLOWER,
@@ -9,6 +11,7 @@ export const setSingleFlower = flower => {
   };
 };
 
+//thunk
 export const fetchSingleFlower = id => {
   return async dispatch => {
     try {
@@ -20,6 +23,7 @@ export const fetchSingleFlower = id => {
   };
 };
 
+//reducer
 export default function singleFlowerReducer(state = {}, action) {
   switch (action.type) {
     case SET_SINGLE_FLOWER:
