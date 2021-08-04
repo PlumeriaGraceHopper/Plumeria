@@ -13,6 +13,7 @@ router.post('/login', async (req, res, next) => {
 
 router.post('/signup', async (req, res, next) => {
   try {
+    // o: can you identify the security hole here... yes you already have tyvm
     const user = await User.create(req.body)
     res.send({token: await user.generateToken()})
   } catch (err) {

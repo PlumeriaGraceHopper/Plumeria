@@ -10,6 +10,7 @@ export class SingleFlower extends React.Component {
     render(){
         return(
             <div id="singleflower">
+                {/* o: you can destructure these props */}
                 <h2>{this.props.flower.name}</h2>
                 <div><img src={this.props.flower.image} /></div>
                 <h3>${this.props.flower.price}.99</h3>

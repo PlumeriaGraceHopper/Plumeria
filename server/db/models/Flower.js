@@ -8,10 +8,12 @@ const Flower = db.define('flower', {
     unique: true,
     allowNull: false,
   },
+  // o: let's 🌮 bout it
   price: {
     type: Sequelize.FLOAT,
     allowNull: false,
   },
+  // o: you don't need long text for either of these
   description: {
     type: Sequelize.TEXT,
     defaultValue: "Under Construction"

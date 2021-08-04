@@ -2,6 +2,9 @@ import axios from 'axios'
 
 
 const SET_FLOWERS= 'SET_FLOWERS'
+
+// o: make sure to wipe out commented out code before finalizing
+
 // const ADD_PROJECT = 'SET_PROJECT'
 // const DELETE_PROJECT = 'DELETE_PROJECT'
 // UPDATE & UNASSIGN - see singleProject reducer !!!
