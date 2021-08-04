@@ -5,7 +5,7 @@ import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
-    <h1>Plumeria</h1>
+    <img src="https://see.fontimg.com/api/renderfont4/3zXEp/eyJyIjoiZnMiLCJoIjo5MCwidyI6MTI1MCwiZnMiOjcyLCJmZ2MiOiIjMDAwMDAwIiwiYmdjIjoiI0ZGRkZGRiIsInQiOjF9/UGx1bWVyaWE/monabeliaclean-regular.png" />
     <nav>
       {isLoggedIn ? (
         <div>
