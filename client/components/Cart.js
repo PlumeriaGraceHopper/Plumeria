@@ -13,15 +13,16 @@ export class Cart extends React.Component {
     return (
       <div>
         <h1>your cart</h1>
-        {console.log("FLOWER PROPS", this.props.flowers)}
         {/* this should but does not work with this.props.user[0].map? 
             double map is probably not idea, but we can refactor. 
             now that we're getting the flowerId, how do we use that to render the flowers? */}
+            {/* maybe we can look at this in code review #2 if we have time! :)  */}
         <table>
         <tr>
           <td></td>
           <td>Flower</td>
           <td>Quantity</td>
+          <td>Price</td>
         </tr>
         {this.props.user.map(item => {
           return item.OrderDetails.map(detail => {
@@ -36,13 +37,15 @@ export class Cart extends React.Component {
                       ))}
                     </td>
                     <td> {flower.map(info => info.name)}</td>
-
                     <td>{flower.map(info => info.quantity)}</td>
+                    <td>{flower.map(info => info.price)}</td>
                   </tr>
             );
           });
         })}
         </table>
+
+        <button className="button">Checkout once we let ya</button>
       </div>
     );
   }
