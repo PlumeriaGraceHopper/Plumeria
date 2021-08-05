@@ -102,3 +102,8 @@ form div {
   width: 75px;
 }
 
+#totalrow {
+  height: 35px;
+  text-align: center;
+  font-size: 35px;
+}

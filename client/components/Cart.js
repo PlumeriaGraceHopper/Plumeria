@@ -23,6 +23,8 @@ export class Cart extends React.Component {
           <td>Flower</td>
           <td>Quantity</td>
           <td>Price</td>
+          <td>Edit</td>
+          <td>Remove Item</td>
         </tr>
         {this.props.user.map(item => {
           return item.OrderDetails.map(detail => {
@@ -38,14 +40,23 @@ export class Cart extends React.Component {
                     </td>
                     <td> {flower.map(info => info.name)}</td>
                     <td>{flower.map(info => info.quantity)}</td>
-                    <td>{flower.map(info => info.price)}</td>
+                    <td>${flower.map(info => info.price)/100}</td>
+                    <td><div><select name="quantity" id="quantity">
+                          <option value="0">0</option>
+                        </select></div></td>
+                    <td><button>Delete Flower</button></td>
                   </tr>
             );
           });
         })}
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td colspan="2" id="totalrow">Total: $0000.00</td>
         </table>
 
-        <button className="button">Checkout once we let ya</button>
+        <button className="button">Checkout once we let ya!</button>
       </div>
     );
   }
