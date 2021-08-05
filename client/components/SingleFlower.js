@@ -18,7 +18,7 @@ export class SingleFlower extends React.Component {
                 <div id="quantitySelect">Quantity: <select name="quantity" id="quantity">
                           <option value="0">0</option>
                         </select></div>
-                        <button id="addToCartButton">Add To Cart Once Cart Exists</button>
+                        <button className="button">Add To Cart Once Cart Exists</button>
             </div>
         )
     }

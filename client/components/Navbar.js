@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+import {NavLink} from 'react-router-dom'
 import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
@@ -10,8 +10,10 @@ const Navbar = ({handleClick, isLoggedIn}) => (
       {isLoggedIn ? (
         <div>
           {/* The navbar will show these links after you log in */}
-          <Link to="/">Home</Link>
-          <Link to="/flowers">All Flowers</Link>
+          <NavLink to="/">Home</NavLink>
+          <NavLink to="/flowers">All Flowers</NavLink>
+          {/* <NavLink to={`user/${userId}/cart`}>Cart</NavLink> */}
+          {/* How to get the userId here?? */}
           <a href="#" onClick={handleClick}>
             Logout
           </a>
@@ -19,10 +21,12 @@ const Navbar = ({handleClick, isLoggedIn}) => (
       ) : (
         <div>
           {/* The navbar will show these links before you log in */}
-          <Link to ="/">Home</Link>
-          <Link to="/flowers">All Flowers</Link>
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
+          <NavLink to ="/">Home</NavLink>
+          <NavLink to="/flowers">All Flowers</NavLink>
+          <NavLink to="/login">Login</NavLink>
+          <NavLink to="/signup">Sign Up</NavLink>
+          {/* <NavLink to="/cart">Cart</NavLink> */}
+          {/* Need to built cart link for guest user - does not need userId in URL */}
         </div>
       )}
     </nav>
