@@ -39,7 +39,7 @@ a {
 
 .flower{
   display: flex;
-  max-width: 1600px;
+  max-width: 2000px;
   justify-content: center;
   flex-wrap: wrap;
 }

@@ -20,13 +20,11 @@ export class Cart extends React.Component {
         let flower = this.props.flowers.filter(
           flower => flower.id === detail.flowerId
         );
-        console.log('SINGLE', flower.map(info => info.price/100).join(''))
         return (
           total += parseInt(flower.map(info => info.price).join(''))*parseInt(flower.map(info => info.quantity).join(''))
         );
       });
     })
-    console.log('TOTAL TEST', total)
     return "$" + total/100
   }
 
