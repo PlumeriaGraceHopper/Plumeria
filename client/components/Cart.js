@@ -55,6 +55,7 @@ export class Cart extends React.Component {
                 let flower = this.props.flowers.filter(
                   flower => flower.id === detail.flowerId
                 );
+                let quantity = detail.quantity;
                 return (
                   <tr key={detail.id}>
                     <td>
@@ -63,7 +64,7 @@ export class Cart extends React.Component {
                       ))}
                     </td>
                     <td> {flower.map(info => info.name)}</td>
-                    <td>{flower.map(info => info.quantity)}</td>
+                    <td>{quantity}</td>
                     <td>${flower.map(info => info.price*info.quantity) / 100} @ {flower.map(info => info.price/100)} per unit </td>
                     <td>
                       <div>
