@@ -6,72 +6,12 @@ body {
   align-content: space-between;
 }
 
+/* Identifiers below in alphabetical order by first element: */
+
 a {
   text-decoration: none;
   color: black;
   transition: 0.2s;
-}
-
-td {
-  border: black 1px solid;
-  width: 200px;;
-}
-
-.flowerlink:hover {
-  color:rgb(255, 144, 164);
-}
-
-label {
-  display: block;
-}
-
-nav a {
-  display: inline-block;
-  margin: 1em;
-}
-
-form div {
-  margin: 1em;
-  display: inline-block;
-}
-
-.flower{
-  display: flex;
-  max-width: 1600px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-#singleflower {
-  border: black 2px solid;
-  max-width: 500px;
-  text-align: center;
-}
-
-#flowerAF {
-  border: black 2px solid;
-  margin: 1px;
-  width: 400px; 
-  text-align: center; 
-  display: flex;
-  flex-flow: column wrap;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.flowerImageMain {
-  opacity: 1;
-  transition: 0.2s;
-}
-
-.flowerImageMain:hover{
-  opacity: 0.6;
-}
-
-.orderImage {
-  width: 100px;
-  height: 100px;
-  border: black 1px solid;
 }
 
 .button {
@@ -97,9 +37,75 @@ form div {
   transform: translateY(3px);
 }
 
+.flower{
+  display: flex;
+  max-width: 2000px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+#flowerAF {
+  border: black 2px solid;
+  margin: 1px;
+  width: 400px; 
+  text-align: center; 
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flowerImageMain {
+  opacity: 1;
+  transition: 0.2s;
+}
+
+.flowerImageMain:hover{
+  opacity: 0.6;
+}
+
+.flowerlink:hover {
+  color:rgb(255, 144, 164);
+}
+
+form div {
+  margin: 1em;
+  display: inline-block;
+}
+
+label {
+  display: block;
+}
+
+nav a {
+  display: inline-block;
+  margin: 1em;
+}
+
+.orderImage {
+  width: 100px;
+  height: 100px;
+  border: black 1px solid;
+}
+
+#paymentpage{
+  text-align: center;
+}
+
 #quantity {
   height: 25px;
   width: 75px;
+}
+
+#singleflower {
+  border: black 2px solid;
+  max-width: 500px;
+  text-align: center;
+}
+
+td {
+  border: black 1px solid;
+  width: 200px;;
 }
 
 #totalrow {
@@ -108,6 +114,3 @@ form div {
   font-size: 35px;
 }
 
-#paymentpage{
-  text-align: center;
-}

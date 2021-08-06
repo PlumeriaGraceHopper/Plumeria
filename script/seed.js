@@ -151,8 +151,8 @@ async function seed() {
       description:
         "Nullam commodo, justo at sollicitudin rhoncus, urna quam rutrum ex, vitae facilisis nulla mauris vitae velit. ",
       image:
-        "https://h2.commercev3.net/cdn.springhillnursery.com/images/400/02691A.jpg",
-      color: "white",
+        "https://h2.commercev3.net/cdn.springhillnursery.com/images/400/75675A.jpg",
+      color: "pink",
       quantity: 18,
     }),
     Flower.create({
