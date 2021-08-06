@@ -6,6 +6,8 @@ import Home from "./components/Home";
 import AllFlowers from "./components/AllFlowers";
 import SingleFlower from "./components/SingleFlower";
 import Cart from "./components/Cart";
+import Payment from "./components/Payment"
+import Confirm from "./components/OrderConfirmation"
 import { me } from "./store";
 
 // COMPONENT
@@ -26,6 +28,9 @@ class Routes extends Component {
             <Route exact path="/flowers" component={AllFlowers} />
             <Route path="/flowers/:id" component={SingleFlower} />
             <Route path="/users/:userId/cart" component={Cart} />
+            <Route path="/payment" component={Payment} />
+            <Route path = "/confirmation" component={Confirm} />
+
           </Switch>
         ) : (
           <Switch>
