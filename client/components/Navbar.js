@@ -6,45 +6,9 @@ import { fetchCart } from "../store/singleUser";
 import { me } from "../store";
 
 
-
-// const Navbar = ({ handleClick, isLoggedIn }, props) => (
-//   <div id="navbar">
-//     <img src="https://see.fontimg.com/api/renderfont4/3zXEp/eyJyIjoiZnMiLCJoIjo5MCwidyI6MTI1MCwiZnMiOjcyLCJmZ2MiOiIjMDAwMDAwIiwiYmdjIjoiI0ZGRkZGRiIsInQiOjF9/UGx1bWVyaWE/monabeliaclean-regular.png" />
-//     <nav>
-//       {isLoggedIn ? (
-//         <div>
-//           {/* The navbar will show these links after you log in */}
-//           <NavLink to="/">Home</NavLink>
-//           <NavLink to="/flowers">All Flowers</NavLink>
-//           {/* <NavLink to={`user/${ ??? }/cart`}>Cart</NavLink> */}
-//           {console.log("PROPS", props)}
-//           <a href="#" onClick={handleClick}>
-//             Logout
-//           </a>
-//         </div>
-//       ) : (
-//         <div>
-//           {/* The navbar will show these links before you log in */}
-//           <NavLink to="/">Home</NavLink>
-//           <NavLink to="/flowers">All Flowers</NavLink>
-//           <NavLink to="/login">Login</NavLink>
-//           <NavLink to="/signup">Sign Up</NavLink>
-//           {/* <NavLink to="/cart">Cart</NavLink> */}
-//           {/* Need to built cart link for guest user - does not need userId in URL */}
-//         </div>
-//       )}
-//     </nav>
-//     <hr />
-//   </div>
-// );
-
-//({ handleClick, isLoggedIn }, props) =>
-
 class Navbar extends React.Component {
 
   render() {
-    console.log('this.props in comp', this.props)
-    console.log('this.state in comp', this.state)
     return (
       <div id="navbar">
         <img src="https://see.fontimg.com/api/renderfont4/3zXEp/eyJyIjoiZnMiLCJoIjo5MCwidyI6MTI1MCwiZnMiOjcyLCJmZ2MiOiIjMDAwMDAwIiwiYmdjIjoiI0ZGRkZGRiIsInQiOjF9/UGx1bWVyaWE/monabeliaclean-regular.png" />

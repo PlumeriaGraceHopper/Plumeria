@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { fetchCart } from "../store/singleUser";
+import { fetchCart, removeItemFromCart } from "../store/singleUser";
 import { fetchFlowers } from "../store/allFlowers";
 
 import { me } from "../store";
@@ -10,6 +10,13 @@ export class Cart extends React.Component {
   componentDidMount() {
     this.props.getCart(this.props.match.params.userId);
     this.props.getFlowers();
+  }
+
+  handleSubmit(event, id) {
+    event.preventDefault()
+    console.log("THIS IS THE HANDLE SUBMIT")
+    console.log("THIS IS THE HANDLE SUBMIT ID", id)
+    this.props.removeItem(id)
   }
 
   getTotalPrice(){
@@ -49,6 +56,7 @@ export class Cart extends React.Component {
             </tr>
             
             {this.props.user.map(item => {
+              console.log("THE CART STATE: ", this.state)
               return item.OrderDetails.map(detail => {
                 let flower = this.props.flowers.filter(
                   flower => flower.id === detail.flowerId
@@ -72,7 +80,7 @@ export class Cart extends React.Component {
                       </div>
                     </td>
                     <td>
-                      <button>Delete Flower</button>
+                      <button onClick = {(e, id = detail.id) => {this.handleSubmit(e, id)}}> Delete Flower</button>
                     </td>
                   </tr>
                 );
@@ -121,6 +129,9 @@ const mapDispatch = dispatch => {
     loadInitialData() {
       dispatch(me());
     },
+    removeItem: orderDetailId => {
+      dispatch(removeItemFromCart(orderDetailId));
+    }
   };
 };
 
