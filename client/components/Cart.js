@@ -1,7 +1,10 @@
 import React from "react";
+import { withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchCart } from "../store/singleUser";
 import { fetchFlowers } from "../store/allFlowers";
+
+import { me } from "../store";
 
 export class Cart extends React.Component {
   componentDidMount() {
@@ -10,28 +13,30 @@ export class Cart extends React.Component {
   }
 
   render() {
+    const { isLoggedIn } = this.props;
     return (
       <div>
         <h1>your cart</h1>
         {/* this should but does not work with this.props.user[0].map? 
             double map is probably not idea, but we can refactor. 
             now that we're getting the flowerId, how do we use that to render the flowers? */}
-            {/* maybe we can look at this in code review #2 if we have time! :)  */}
+        {/* maybe we can look at this in code review #2 if we have time! :)  */}
         <table>
-        <tr>
-          <td></td>
-          <td>Flower</td>
-          <td>Quantity</td>
-          <td>Price</td>
-          <td>Edit</td>
-          <td>Remove Item</td>
-        </tr>
-        {this.props.user.map(item => {
-          return item.OrderDetails.map(detail => {
-            let flower = this.props.flowers.filter(
-              flower => flower.id === detail.flowerId
-            );
-            return (
+          <tbody>
+            <tr>
+              <td></td>
+              <td>Flower</td>
+              <td>Quantity</td>
+              <td>Price</td>
+              <td>Edit</td>
+              <td>Remove Item</td>
+            </tr>
+            {this.props.user.map(item => {
+              return item.OrderDetails.map(detail => {
+                let flower = this.props.flowers.filter(
+                  flower => flower.id === detail.flowerId
+                );
+                return (
                   <tr key={detail.id}>
                     <td>
                       {flower.map(info => (
@@ -40,23 +45,40 @@ export class Cart extends React.Component {
                     </td>
                     <td> {flower.map(info => info.name)}</td>
                     <td>{flower.map(info => info.quantity)}</td>
-                    <td>${flower.map(info => info.price)/100}</td>
-                    <td><div><select name="quantity" id="quantity">
+                    <td>${flower.map(info => info.price) / 100}</td>
+                    <td>
+                      <div>
+                        <select name="quantity" id="quantity">
                           <option value="0">0</option>
-                        </select></div></td>
-                    <td><button>Delete Flower</button></td>
+                        </select>
+                      </div>
+                    </td>
+                    <td>
+                      <button>Delete Flower</button>
+                    </td>
                   </tr>
-            );
-          });
-        })}
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td colspan="2" id="totalrow">Total: $0000.00</td>
+                );
+              });
+            })}
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td colSpan="2" id="totalrow">
+              Total: $0000.00
+            </td>
+          </tbody>
         </table>
 
-        <button className="button">Checkout once we let ya!</button>
+        {isLoggedIn ? (
+          <Link to="/payment">
+            <button className="button" type="button">Checkout</button>
+          </Link>
+        ) : (
+          <Link to="/login">
+            <button className="button" type="button">Sign In to Complete Order</button>
+          </Link>
+        )}
       </div>
     );
   }
@@ -66,6 +88,7 @@ const mapState = state => {
   return {
     user: state.user,
     flowers: state.flowers,
+    isLoggedIn: !!state.auth.id,
   };
 };
 
@@ -77,7 +100,10 @@ const mapDispatch = dispatch => {
     getFlowers: () => {
       dispatch(fetchFlowers());
     },
+    loadInitialData() {
+      dispatch(me());
+    },
   };
 };
 
-export default connect(mapState, mapDispatch)(Cart);
+export default withRouter(connect(mapState, mapDispatch)(Cart));
