@@ -12,6 +12,24 @@ export class Cart extends React.Component {
     this.props.getFlowers();
   }
 
+  getTotalPrice(){
+    let total = 0
+
+    this.props.user.map(item => {
+      return item.OrderDetails.map(detail => {
+        let flower = this.props.flowers.filter(
+          flower => flower.id === detail.flowerId
+        );
+        console.log('SINGLE', flower.map(info => info.price/100).join(''))
+        return (
+          total += parseInt(flower.map(info => info.price).join(''))*parseInt(flower.map(info => info.quantity).join(''))
+        );
+      });
+    })
+    console.log('TOTAL TEST', total)
+    return "$" + total/100
+  }
+
   render() {
     const { isLoggedIn } = this.props;
     return (
@@ -31,6 +49,7 @@ export class Cart extends React.Component {
               <td>Edit</td>
               <td>Remove Item</td>
             </tr>
+            
             {this.props.user.map(item => {
               return item.OrderDetails.map(detail => {
                 let flower = this.props.flowers.filter(
@@ -45,7 +64,7 @@ export class Cart extends React.Component {
                     </td>
                     <td> {flower.map(info => info.name)}</td>
                     <td>{flower.map(info => info.quantity)}</td>
-                    <td>${flower.map(info => info.price) / 100}</td>
+                    <td>${flower.map(info => info.price*info.quantity) / 100} @ {flower.map(info => info.price/100)} per unit </td>
                     <td>
                       <div>
                         <select name="quantity" id="quantity">
@@ -65,7 +84,7 @@ export class Cart extends React.Component {
             <td></td>
             <td></td>
             <td colSpan="2" id="totalrow">
-              Total: $0000.00
+              Total: {this.getTotalPrice()}
             </td>
           </tbody>
         </table>
