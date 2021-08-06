@@ -134,6 +134,117 @@ async function seed() {
       color: "orange",
       quantity: 18,
     }),
+    ///////NEW ONES BELOW//////////////
+    Flower.create({
+      name: "Double Pink Peony",
+      price: 1299,
+      description:
+        "Nullam commodo, justo at sollicitudin rhoncus, urna quam rutrum ex, vitae facilisis nulla mauris vitae velit. ",
+      image:
+        "https://h2.commercev3.net/cdn.springhillnursery.com/images/400/65582A.jpg",
+      color: "pink",
+      quantity: 18,
+    }),
+    Flower.create({
+      name: "Festival Peony",
+      price: 1399,
+      description:
+        "Nullam commodo, justo at sollicitudin rhoncus, urna quam rutrum ex, vitae facilisis nulla mauris vitae velit. ",
+      image:
+        "https://h2.commercev3.net/cdn.springhillnursery.com/images/400/02691A.jpg",
+      color: "white",
+      quantity: 18,
+    }),
+    Flower.create({
+      name: "Obsidian Iris",
+      price: 1199,
+      description:
+        "Nullam commodo, justo prut sollicitudin rhoncus, urna quam rutrum ex, vitae facilisis nulla mauris vitae velit. ",
+      image:
+        "https://h2.commercev3.net/cdn.springhillnursery.com/images/400/67247A.jpg",
+      color: "purple",
+      quantity: 18,
+    }),
+    Flower.create({
+      name: "Hummingbird Mint",
+      price: 1799,
+      description:
+        "Nullam commodo, justo at sollicitudin rhoncus, urna quam rutrum ex, vitae facilisis nulla mauris vitae velit. ",
+      image:
+        "https://h2.commercev3.net/cdn.springhillnursery.com/images/400/74219A.jpg",
+      color: "orange",
+      quantity: 18,
+    }),
+    Flower.create({
+      name: "Berry Coneflower",
+      price: 1099,
+      description:
+        "Nullam commodo, justo at sollicitudin rhoncus, urna quam rutrum ex, vitae facilisis nulla mauris vitae velit. ",
+      image:
+        "https://h2.commercev3.net/cdn.springhillnursery.com/images/400/78141A.jpg",
+      color: "pink",
+      quantity: 18,
+    }),
+    Flower.create({
+      name: "Blue Gentian",
+      price: 1499,
+      description:
+        "Nullam commodo, justo at sollicitudin rhoncus, urna quam rutrum ex, vitae facilisis nulla mauris vitae velit. ",
+      image:
+        "https://h2.commercev3.net/cdn.springhillnursery.com/images/400/65952A.jpg",
+      color: "blue",
+      quantity: 18,
+    }),
+    Flower.create({
+      name: "Hyacinth",
+      price: 1899,
+      description:
+        "Nullam commodo, justo at sollicitudin rhoncus, urna quam rutrum ex, vitae facilisis nulla mauris vitae velit. ",
+      image:
+        "https://h2.commercev3.net/cdn.springhillnursery.com/images/400/74912.jpg",
+      color: "purple",
+      quantity: 18,
+    }),
+    Flower.create({
+      name: "Daylily",
+      price: 999,
+      description:
+        "Nullam commodo, justo at sollicitudin rhoncus, urna quam rutrum ex, vitae facilisis nulla mauris vitae velit. ",
+      image:
+        "https://h2.commercev3.net/cdn.springhillnursery.com/images/400/66625A.jpg",
+      color: "red",
+      quantity: 18,
+    }),
+    Flower.create({
+      name: "Rose Digitalis",
+      price: 1499,
+      description:
+        "Nullam commodo, justo at sollicitudin rhoncus, urna quam rutrum ex, vitae facilisis nulla mauris vitae velit. ",
+      image:
+        "https://h2.commercev3.net/cdn.springhillnursery.com/images/400/64290A.jpg",
+      color: "pink",
+      quantity: 18,
+    }),
+    Flower.create({
+      name: "Russian Sage",
+      price: 1899,
+      description:
+        "Nullam commodo, justo at sollicitudin rhoncus, urna quam rutrum ex, vitae facilisis nulla mauris vitae velit. ",
+      image:
+        "https://h2.commercev3.net/cdn.springhillnursery.com/images/400/62428A.jpg",
+      color: "purple",
+      quantity: 18,
+    }),
+    Flower.create({
+      name: "Amsonia",
+      price: 2299,
+      description:
+        "Nullam commodo, justo at sollicitudin rhoncus, urna quam rutrum ex, vitae facilisis nulla mauris vitae velit. ",
+      image:
+        "https://h2.commercev3.net/cdn.springhillnursery.com/images/400/60745A.jpg",
+      color: "blue",
+      quantity: 18,
+    }),
   ]);
 
   const [plumeria, lily, wysteria, hydrangea, lotv, lemon, tulip, peony, rose] =
