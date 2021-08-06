@@ -58,3 +58,16 @@ router.get('/:userId/cart', async (req, res, next) => {
     next(error)
   }
 })
+
+router.delete('/:orderDetailId', async (req, res, next) => {
+  const orderDetailId = req.params.orderDetailId
+
+  console.log(orderDetailId)
+  try {
+  const removeItem =  await OrderDetail.findByPk(orderDetailId);
+  await removeItem.destroy();
+  res.send(removeItem)
+  } catch (error) {
+    next(error)
+  }
+})
