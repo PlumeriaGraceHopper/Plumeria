@@ -38,6 +38,16 @@ async function seed() {
       password: "123",
       admin: false,
     }),
+    User.create({
+      email: "baby@plumeria.com",
+      password: "123",
+      admin: false,
+    }),
+    User.create({
+      email: "jolene@plumeria.com",
+      password: "123",
+      admin: false,
+    }),
   ]);
 
   const [nicky, caitlin, jazmin, kathleen, orlando, denesse] = users;
