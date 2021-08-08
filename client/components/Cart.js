@@ -32,7 +32,16 @@ export class Cart extends React.Component {
         );
       });
     })
-    return "$" + total/100
+
+    let dividedTotal = total/100
+
+    let decimalTotal = dividedTotal.toLocaleString('en-us', {
+      style: 'currency',
+      currency: 'USD'
+    })
+
+    //let decimal = decimalTotal.findIndexOf('.')
+    return decimalTotal
   }
 
   render() {
