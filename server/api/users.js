@@ -88,10 +88,11 @@ router.delete('/:orderDetailId', async (req, res, next) => {
 //checks cart if order detail already has flower ID, if yes, updates quantity, if no, adds new order detail
 //if adding new order detail, need to associate with flower, and with order 
 
+//case if: no order & no order detail:
 router.post('/:userId/:flowerId/:quantity', async (req, res, next) => {
   try{
-    const user = User.findByPk(req.params.userId)
-    const flower = Flower.findByPk(req.params.flowerId)
+    const user = await User.findByPk(req.params.userId)
+    const flower = await Flower.findByPk(req.params.flowerId)
     const quantity = req.params.quantity
 
     const newOrder = await Order.create()
@@ -102,6 +103,40 @@ router.post('/:userId/:flowerId/:quantity', async (req, res, next) => {
     await flower.addOrderDetail(newOrderDetail)
 
     res.send(newOrder)
+  }
+  catch(err){next(err)}
+})
+
+//case if: order exists but no order detail:
+//order exists in state (with order details in cart)
+router.post('/:userId/:OrderId/:flowerId/:quantity', async (req, res, next) => {
+  try{
+    const order = await Order.findByPk(req.params.OrderId)
+    const flower = await Flower.findByPk(req.params.flowerId)
+    const quantity = req.params.quantity
+
+    const newOrderDetail = await OrderDetail.create({quantity})
+
+    // await user.addOrder(newOrder)
+    await order.addOrderDetail(newOrderDetail)
+    await flower.adOrderDetail(newOrderDetail)
+    
+
+    res.send(newOrderDetail)
+  }
+  catch(err){next(err)}
+})
+
+//case if: order exists & order detail exists:
+//update quantity of flowers:
+router.put('/:userId/:OrderId/:OrderDetailId/:quantity', async (req, res, next) => {
+  try{
+    const orderDetail = await OrderDetail.findByPk(req.params.OrderDetailId)
+    const quantity = req.params.quantity
+    await orderDetail.update({quantity})
+    const order = await Order.findByPk(req.params.OrderId)
+    res.send(order)
+    
   }
   catch(err){next(err)}
 })

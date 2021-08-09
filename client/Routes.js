@@ -15,6 +15,8 @@ import { me } from "./store";
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData();
+    console.log("ROUTES PROPS",this.props)
+    console.log("ROUTES STATE",this.state)
   }
 
   render() {
@@ -53,6 +55,7 @@ const mapState = state => {
     // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
     // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
     isLoggedIn: !!state.auth.id,
+    auth: state.auth
   };
 };
 

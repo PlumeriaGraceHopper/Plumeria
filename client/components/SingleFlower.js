@@ -12,7 +12,7 @@ export class SingleFlower extends React.Component {
     }
     componentDidMount(){
       this.props.getMe(); //thunk 
-      this.props.getFlower(this.props.match.params.id)z
+      this.props.getFlower(this.props.match.params.id)
     }
     
     handleChange(event) {
@@ -20,6 +20,7 @@ export class SingleFlower extends React.Component {
         selectedQuantity: event.target.value,
       });
       this.props.getCart(this.props.auth.id)
+
     }
   
     async handleSubmit(event) {
@@ -50,6 +51,7 @@ export class SingleFlower extends React.Component {
     }
 
     render() {
+
       const { name, image, price, description, quantity } = this.props.flower;
       
       let quantityArr = [];
