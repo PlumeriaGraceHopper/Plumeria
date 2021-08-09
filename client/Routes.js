@@ -15,6 +15,8 @@ import { me } from "./store";
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData();
+    console.log("ROUTES PROPS",this.props)
+    console.log("ROUTES STATE",this.state)
   }
 
   render() {

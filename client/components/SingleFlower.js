@@ -1,30 +1,36 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {fetchSingleFlower} from '../store/singleFlower'
+import {fetchSingleFlower} from '../store/singleFlower';
+import { fetchUser } from '../store/singleUser';
+import { me } from "../store";
 
 export class SingleFlower extends React.Component {
     constructor(props){
       super(props);
       this.state = { selectedQuantity: 0 }
-      this.handleSubmit = this.handleSubmit.bind(this);
-      this.handleChange = this.handleChange.bind(this);
     }
     componentDidMount(){
+      this.props.getMe();
       this.props.getFlower(this.props.match.params.id)
+
+      // console.log("PROPS",this.props)
+      // console.log("STATE", this.state) //local state
     }
     
     handleChange = (event) => {
       this.setState({
         selectedQuantity : event.target.value
       })
-      console.log('what is the selectedQuantity?', this.state.selectedQuantity, typeof(this.state.selectedQuantity) )
     }
 
     handleSubmit = (event) => {
       event.preventDefault();
+      const currentUser = (this.props.auth.id).toString();
+      this.props.getUser(currentUser);
     }
 
     render(){
+      console.log(this.props.auth.id)
       const { name, image, price, description, quantity } = this.props.flower;
       
       let quantityArr = [];
@@ -46,7 +52,7 @@ export class SingleFlower extends React.Component {
                     {renderQuant}
                   </select>
                 </div>
-                <button onSubmit={e => this.handleSubmit(e)} className="button" >Add To Cart</button>
+                <button onClick={e => this.handleSubmit(e)} className="button" >Add To Cart</button>
             </div>
         )
     }
@@ -54,13 +60,17 @@ export class SingleFlower extends React.Component {
 
 const mapState = (state) => {
     return {
-      flower: state.flower
+      auth: state.auth,
+      flower: state.flower,
+      user: state.user
     };
   };
   
   const mapDispatch = (dispatch) => {
     return {
-      getFlower: (id) => {dispatch(fetchSingleFlower(id))}
+      getFlower: (id) => {dispatch(fetchSingleFlower(id))},
+      getUser : (id) => {dispatch(fetchUser(id))},
+      getMe : () => {dispatch(me())},
 
     };
   };
