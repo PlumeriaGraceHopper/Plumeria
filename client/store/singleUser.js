@@ -5,6 +5,7 @@ const SET_CART = "SET_CART";
 const REMOVE_ITEM = "REMOVE_ITEM";
 const ADD_CART = "ADD_CART"
 const ADD_TO_ORDER = "ADD_TO_ORDER" 
+const UPDATE_FLOWER = "UPDATE_FLOWER" 
 
 //action creator
 export const setCart = user => {
@@ -33,6 +34,13 @@ export const addToOrder = (orderDetail) => {
   return {
     type: ADD_TO_ORDER,
     orderDetail
+  };
+};
+
+export const updateFlower = (quantity) => {
+  return {
+    type: UPDATE_FLOWER,
+    quantity
   };
 };
 
@@ -73,6 +81,17 @@ export const fetchAddToOrder = (userId, OrderId, flowerId, quantity) => {
   };
 };
 
+export const fetchUpdateFlower = (userId, OrderDetailId, quantity) => {
+  return async dispatch => {
+    try {
+      const { data } = await axios.put(`/api/users/${userId}/${OrderDetailId}/${quantity}`);
+      dispatch(updateFlower(data));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
 export const removeItemFromCart = orderDetailId => {
 
   return async dispatch => {
@@ -104,7 +123,9 @@ export default function singleUserReducer(state = [], action) {
     case ADD_CART:
       return {...state, order: action.order}
     case ADD_TO_ORDER: 
-      return {...state, order: [...state.order, action.orderDetail]}  
+      return {...state, order: [...state.order, action.orderDetail]} 
+    case UPATE_FLOWER: 
+      return {...state, order: [...state.order, action.orderDetail]}    
     default:
       return state;
   }
