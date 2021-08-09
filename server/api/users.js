@@ -129,12 +129,14 @@ router.post('/:userId/:OrderId/:flowerId/:quantity', async (req, res, next) => {
 
 //case if: order exists & order detail exists:
 //update quantity of flowers:
-router.put('/:userId/:OrderDetailId/:quantity', async (req, res, next) => {
+router.put('/:userId/:OrderId/:OrderDetailId/:quantity', async (req, res, next) => {
   try{
     const orderDetail = await OrderDetail.findByPk(req.params.OrderDetailId)
     const quantity = req.params.quantity
-
-    res.send(await orderDetail.update({quantity}))
+    await orderDetail.update({quantity})
+    const order = await Order.findByPk(req.params.OrderId)
+    res.send(order)
+    
   }
   catch(err){next(err)}
 })
