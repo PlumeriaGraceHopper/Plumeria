@@ -131,8 +131,8 @@ export const removeItemFromCart = orderDetailId => {
 export default function singleUserReducer(state = [], action) {
   
   switch (action.type) {
-    case GET_USER:
-      return action.user;
+    // case GET_USER:
+    //   return action.user;
     case SET_CART: //only runs if we are on the /cart page
       return action.user;
       //updated this to action.user instead of action.cart
