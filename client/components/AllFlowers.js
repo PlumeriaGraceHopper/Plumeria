@@ -22,6 +22,7 @@ export class AllFlowers extends React.Component {
                     return ( <div id="flowerAF" key = {flower.id} >
                       <Link to={`/flowers/${flower.id}`} className="flowerlink"><h2>{flower.name}</h2></Link>
                       <Link to={`/flowers/${flower.id}`} > <div> <img className="flowerImageMain" src = {flower.image} /> </div></Link>
+                        {/* o: you can create a function to handle formatting of price */}
                         <h3> ${flower.price/100}</h3>
                     </div>)
                     

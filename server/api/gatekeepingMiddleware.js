@@ -11,6 +11,8 @@ const requireToken = async ( req, res,next ) => {
     }
 }
 
+// o: missing admin / logged in stuff
+
 module.exports = {
     requireToken
 }

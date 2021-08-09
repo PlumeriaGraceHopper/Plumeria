@@ -33,6 +33,7 @@ export class SingleFlower extends React.Component {
       
   
   
+      // o: why are you checking the user length here?
       //ADD CART : userId, flowerId, quantity
       if (this.props.user.length === 0) {
         

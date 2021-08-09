@@ -21,6 +21,7 @@ export class Cart extends React.Component {
   getTotalPrice(){
     let total = 0
 
+    // o: talk to me about what's happening here
     this.props.user.map(item => {
       return item.OrderDetails.map(detail => {
         let flower = this.props.flowers.filter(
@@ -79,6 +80,7 @@ export class Cart extends React.Component {
                     </td>
                     <td> {flower.map(info => info.name)}</td>
                     <td>{quantity}</td>
+                    {/* o: you can create a function to handle formatting of price */}
                     <td>${flower.map(info => info.price*info.quantity) / 100} @ {flower.map(info => info.price/100)} per unit </td>
                     <td>
                       <div>

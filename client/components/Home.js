@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 
 class Home extends React.Component {
   render() {
+    // o: what's this about
     const {email} = this.props.auth 
     var name = email.substring(0, email.lastIndexOf("@"));
     name = name.charAt(0).toUpperCase() + name.slice(1);

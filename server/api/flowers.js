@@ -16,8 +16,9 @@ router.get("/", async (req, res, next) => {
 
 router.get("/:flowerId", async (req, res, next) => {
   try {
+    // o: need to check for when you can't find a flower
     const flower = await Flower.findByPk(req.params.flowerId);
-    res.json(flower);
+   res.json(flower); 
   } catch (err) {
     next(err);
   }

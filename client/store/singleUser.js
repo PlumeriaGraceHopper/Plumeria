@@ -79,6 +79,7 @@ export const fetchCart = id => {
 export const fetchAddCart = (userId, flowerId, quantity) => {
   return async dispatch => {
     try {
+      // o: this kinda reads like you are creating a new user
       const { data } = await axios.post(`/api/users/${userId}/${flowerId}/${quantity}`);
       dispatch(addCart(data));
     } catch (err) {
@@ -90,6 +91,7 @@ export const fetchAddCart = (userId, flowerId, quantity) => {
 export const fetchAddToOrder = (userId, OrderId, flowerId, quantity) => {
   return async dispatch => {
     try {
+      // o: this kinda reads like you are creating a new user
       const { data } = await axios.post(`/api/users/${userId}/${OrderId}/${flowerId}/${quantity}`);
       dispatch(addToOrder(data));
     } catch (err) {
@@ -101,6 +103,7 @@ export const fetchAddToOrder = (userId, OrderId, flowerId, quantity) => {
 export const fetchUpdateFlower = (userId, OrderDetailId, quantity) => {
   return async dispatch => {
     try {
+      // o: this kinda reads like you are modifying a user
       const { data } = await axios.put(`/api/users/${userId}/${OrderDetailId}/${quantity}`);
       dispatch(updateFlower(data));
     } catch (err) {
@@ -113,6 +116,7 @@ export const removeItemFromCart = orderDetailId => {
 
   return async dispatch => {
     try {
+      // o: this kinda reads like you are deleting a user
       const { data } = await axios.delete(`/api/users/${orderDetailId}`);
       dispatch(removeItem(data));
     } catch (err) {
