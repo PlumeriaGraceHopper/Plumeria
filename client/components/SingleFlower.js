@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import {withRouter} from "react-router-dom";
 import {fetchSingleFlower} from '../store/singleFlower';
 import { fetchCart} from '../store/singleUser';
 import { me } from "../store";
@@ -11,15 +12,15 @@ export class SingleFlower extends React.Component {
       this.state = { selectedQuantity: 0 }
     }
     componentDidMount(){
-      this.props.getMe(); //thunk 
+
       this.props.getFlower(this.props.match.params.id)
+      console.log('SINGLE FLOWER PROPS',this.props)
     }
     
     handleChange(event) {
       this.setState({
         selectedQuantity: event.target.value,
       });
-      this.props.getCart(this.props.auth.id)
 
     }
   
@@ -31,12 +32,10 @@ export class SingleFlower extends React.Component {
       const quantity = parseInt(this.state.selectedQuantity);
       
   
-      console.log("in handleSubmit state:", this.state);
-      console.log("in handleSubmit props:", this.props);
   
       //ADD CART : userId, flowerId, quantity
       if (this.props.user.length === 0) {
-        console.log('Cart does not exist', this.props.user)
+        
         this.props.addCart(userId, flowerId, quantity);
       }
   
@@ -44,7 +43,7 @@ export class SingleFlower extends React.Component {
       //ADD TO ORDER : userId, orderId, flowerId, quantity
       else {
         const orderId = await this.props.user[0].id
-        console.log("Cart exists. orderId: ", this.props.user[0].id);
+       
         this.props.addToOrder(userId, orderId, flowerId, quantity);
       }
       //If yes FALSE order and YES this flower
@@ -90,13 +89,13 @@ const mapState = (state) => {
   const mapDispatch = (dispatch) => {
     return {
       getFlower: (id) => {dispatch(fetchSingleFlower(id))},
-      getCart : (id) => {dispatch(fetchCart(id))},
-      getMe : () => {dispatch(me())},
+      // getCart : (id) => {dispatch(fetchCart(id))},
+      // getMe : () => {dispatch(me())},
       addCart: (userId, flowerId, quantity) => {dispatch(fetchAddCart(userId, flowerId, quantity))},
       addToOrder: (userId, orderId, flowerId, quantity) => {dispatch(fetchAddToOrder(userId, orderId, flowerId, quantity))},
 
     };
   };
   
-  export default connect(mapState, mapDispatch)(SingleFlower);
+  export default withRouter(connect(mapState, mapDispatch)(SingleFlower));
   
