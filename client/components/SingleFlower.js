@@ -1,30 +1,56 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {fetchSingleFlower} from '../store/singleFlower'
+import {fetchSingleFlower} from '../store/singleFlower';
+import { fetchCart} from '../store/singleUser';
+import { me } from "../store";
+import { fetchAddCart, fetchAddToOrder, fetchUpdateFlower } from '../store/singleUser';
 
 export class SingleFlower extends React.Component {
     constructor(props){
       super(props);
       this.state = { selectedQuantity: 0 }
-      this.handleSubmit = this.handleSubmit.bind(this);
-      this.handleChange = this.handleChange.bind(this);
     }
     componentDidMount(){
+      this.props.getMe(); //thunk 
       this.props.getFlower(this.props.match.params.id)
+      // console.log("SINGLE FLOWER STATE", this.state) //local state
     }
     
     handleChange = (event) => {
       this.setState({
         selectedQuantity : event.target.value
       })
-      console.log('what is the selectedQuantity?', this.state.selectedQuantity, typeof(this.state.selectedQuantity) )
     }
 
     handleSubmit = (event) => {
       event.preventDefault();
+      console.log("AUTH.ID", this.props.auth.id)
+      this.props.getCart(this.props.auth.id) //USER PROPS CREATED 
+      const userId = this.props.auth.id
+      const flowerId = parseInt(this.props.match.params.id)
+      const quantity = parseInt(this.state.selectedQuantity)
+      const orderId = this.props.user[0].id
+  
+      //ADD CART : userId, flowerId, quantity
+      if(this.props.user.length === 0) {  //If NO order 
+      console.log("CONSOLE INSIDE NO ORDER",userId, flowerId, quantity)
+      this.props.addCart(userId, flowerId, quantity)
+      }
+
+      //If yes FALSE order and NO this flower
+      //ADD TO ORDER : userId, orderId, flowerId, quantity
+      else {
+        console.log("ELSE YES CART")
+      this.props.addToOrder(userId, orderId, flowerId, quantity)
+      }
+      //If yes FALSE order and YES this flower 
+      //ADD FLOWER : userid, orderdetailid, quantity
+
+
     }
 
-    render(){
+    render() {
+      console.log("SINGLE FLOWER PROPS",this.props)
       const { name, image, price, description, quantity } = this.props.flower;
       
       let quantityArr = [];
@@ -34,7 +60,6 @@ export class SingleFlower extends React.Component {
       let renderQuant = quantityArr.map((num) => 
         <option key={num}>{num}</option>
       );
-      console.log("---RENDERQUANT---", renderQuant)
         return(
             <div id="singleflower">
                 <h2>{name}</h2>
@@ -46,7 +71,7 @@ export class SingleFlower extends React.Component {
                     {renderQuant}
                   </select>
                 </div>
-                <button onSubmit={e => this.handleSubmit(e)} className="button" >Add To Cart</button>
+                <button onClick={e => this.handleSubmit(e)} className="button" >Add To Cart</button>
             </div>
         )
     }
@@ -54,13 +79,19 @@ export class SingleFlower extends React.Component {
 
 const mapState = (state) => {
     return {
-      flower: state.flower
+      auth: state.auth,
+      flower: state.flower,
+      user: state.user //cart
     };
   };
   
   const mapDispatch = (dispatch) => {
     return {
-      getFlower: (id) => {dispatch(fetchSingleFlower(id))}
+      getFlower: (id) => {dispatch(fetchSingleFlower(id))},
+      getCart : (id) => {dispatch(fetchCart(id))},
+      getMe : () => {dispatch(me())},
+      addCart: (userId, flowerId, quantity) => {dispatch(fetchAddCart(userId, flowerId, quantity))},
+      addToOrder: (userId, orderId, flowerId, quantity) => {dispatch(fetchAddToOrder(userId, orderId, flowerId, quantity))},
 
     };
   };

@@ -1,6 +1,7 @@
 import axios from "axios";
 
 //constant
+const GET_USER = "GET_USER"
 const SET_CART = "SET_CART";
 const REMOVE_ITEM = "REMOVE_ITEM";
 const ADD_CART = "ADD_CART"
@@ -8,6 +9,13 @@ const ADD_TO_ORDER = "ADD_TO_ORDER"
 const UPDATE_FLOWER = "UPDATE_FLOWER" 
 
 //action creator
+export const getUser = user =>{
+  return {
+    type: GET_USER,
+    user
+  }
+}
+
 export const setCart = user => {
   return {
     type: SET_CART,
@@ -45,9 +53,19 @@ export const updateFlower = (quantity) => {
 };
 
 //thunk
+export const fetchUser = id => {
+  return async dispatch => {
+    try {
+      const { data } = await axios.get(`/api/users/${id}`);
+      console.log("USERDATA",data)
+      dispatch(getUser(data));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
 export const fetchCart = id => {
-  
-  //returns orders that are false
   return async dispatch => {
     try {
       const { data } = await axios.get(`/api/users/${id}/cart`);
@@ -113,8 +131,9 @@ export const removeItemFromCart = orderDetailId => {
 export default function singleUserReducer(state = [], action) {
   
   switch (action.type) {
-    case SET_CART:
-      console.log("STATE IN THE USER RED: ", state)
+    // case GET_USER:
+    //   return action.user;
+    case SET_CART: //only runs if we are on the /cart page
       return action.user;
       //updated this to action.user instead of action.cart
       //did not work with action.cart
@@ -124,7 +143,7 @@ export default function singleUserReducer(state = [], action) {
       return {...state, order: action.order}
     case ADD_TO_ORDER: 
       return {...state, order: [...state.order, action.orderDetail]} 
-    case UPATE_FLOWER: 
+    case UPDATE_FLOWER: 
       return {...state, order: [...state.order, action.orderDetail]}    
     default:
       return state;
