@@ -29,7 +29,7 @@ export class SingleFlower extends React.Component {
       const userId = this.props.auth.id;
       const flowerId = parseInt(this.props.match.params.id);
       const quantity = parseInt(this.state.selectedQuantity);
-      const orderId = await this.props.user[0].id
+      
   
       console.log("in handleSubmit state:", this.state);
       console.log("in handleSubmit props:", this.props);
@@ -43,6 +43,7 @@ export class SingleFlower extends React.Component {
       //If yes FALSE order and NO this flower
       //ADD TO ORDER : userId, orderId, flowerId, quantity
       else {
+        const orderId = await this.props.user[0].id
         console.log("Cart exists. orderId: ", this.props.user[0].id);
         this.props.addToOrder(userId, orderId, flowerId, quantity);
       }

@@ -142,7 +142,8 @@ export default function singleUserReducer(state = [], action) {
     case ADD_CART:
       return {...state, order: action.order}
     case ADD_TO_ORDER: 
-      return {...state, order: [...state.order, action.orderDetail]} 
+      //return {...state, order: [...state.order, action.orderDetail]} 
+      return {...state, order: [action.orderDetail]} 
     case UPDATE_FLOWER: 
       return {...state, order: [...state.order, action.orderDetail]}    
     default:
