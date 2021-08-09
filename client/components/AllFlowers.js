@@ -9,8 +9,6 @@ export class AllFlowers extends React.Component {
 
   componentDidMount () {
       this.props.getFlowers();
-      console.log("PROPS",this.props)
-      console.log("STATE", this.state)
   }
 
   

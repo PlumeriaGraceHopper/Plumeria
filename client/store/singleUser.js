@@ -57,7 +57,7 @@ export const fetchUser = id => {
   return async dispatch => {
     try {
       const { data } = await axios.get(`/api/users/${id}`);
-      console.log("USERDATA",data)
+     
       dispatch(getUser(data));
     } catch (err) {
       console.log(err);
@@ -81,7 +81,6 @@ export const fetchAddCart = (userId, flowerId, quantity) => {
     try {
       const { data } = await axios.post(`/api/users/${userId}/${flowerId}/${quantity}`);
       dispatch(addCart(data));
-      console.log('This is the Thunk data:', data)
     } catch (err) {
       console.log(err);
     }
@@ -116,8 +115,6 @@ export const removeItemFromCart = orderDetailId => {
     try {
       const { data } = await axios.delete(`/api/users/${orderDetailId}`);
       dispatch(removeItem(data));
-      console.log('This is the Thunk data:', data)
-      console.log('This is the thunk id: ' , orderDetailId)
     } catch (err) {
       console.log(err);
     }

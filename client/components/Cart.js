@@ -8,9 +8,8 @@ import { me } from "../store";
 
 export class Cart extends React.Component {
   componentDidMount() {
-    console.log('cDM1', this.props)
-    this.props.getCart(this.props.match.params.userId);
-    console.log('cDM2', this.props)
+
+    // this.props.getCart(this.props.match.params.userId);
     this.props.getFlowers();
   }
 
@@ -45,6 +44,7 @@ export class Cart extends React.Component {
   }
 
   render() {
+    console.log('PROPS IN CART:', this.props)
     const { isLoggedIn } = this.props;
     return (
       <div>
@@ -128,9 +128,9 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    getCart: id => {
-      dispatch(fetchCart(id));
-    },
+    // getCart: id => {
+    //   dispatch(fetchCart(id));
+    // },
     getFlowers: () => {
       dispatch(fetchFlowers());
     },
