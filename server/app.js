@@ -10,9 +10,11 @@ app.use(morgan('dev'))
 // body parsing middleware
 app.use(express.json())
 
+
+
 // auth and api routes
-app.use('/auth', require('./auth'))
-app.use('/api', require('./api'))
+app.use('/auth', require('./auth')) //auth router
+app.use('/api', require('./api')) //view router 
 
 app.get('/', (req, res)=> res.sendFile(path.join(__dirname, '..', 'public/index.html')));
 
