@@ -8,14 +8,14 @@ import { me } from "../store";
 
 export class Cart extends React.Component {
   componentDidMount() {
+    console.log('cDM1', this.props)
     this.props.getCart(this.props.match.params.userId);
+    console.log('cDM2', this.props)
     this.props.getFlowers();
   }
 
   handleSubmit(event, id) {
     event.preventDefault()
-    console.log("THIS IS THE HANDLE SUBMIT")
-    console.log("THIS IS THE HANDLE SUBMIT ID", id)
     this.props.removeItem(id)
   }
 
@@ -65,7 +65,6 @@ export class Cart extends React.Component {
             </tr>
             
             {this.props.user.map(item => {
-              console.log("THE CART STATE: ", this.state)
               return item.OrderDetails.map(detail => {
                 let flower = this.props.flowers.filter(
                   flower => flower.id === detail.flowerId
