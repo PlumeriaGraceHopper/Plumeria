@@ -13,44 +13,45 @@ export class SingleFlower extends React.Component {
     componentDidMount(){
       this.props.getMe(); //thunk 
       this.props.getFlower(this.props.match.params.id)
-      // console.log("SINGLE FLOWER STATE", this.state) //local state
     }
     
-    handleChange = (event) => {
+    handleChange(event) {
       this.setState({
-        selectedQuantity : event.target.value
-      })
-    }
+        selectedQuantity: event.target.value,
+      });
+      this.props.getCart(this.props.auth.id)
 
-    handleSubmit = (event) => {
+    }
+  
+    async handleSubmit(event) {
       event.preventDefault();
-      console.log("AUTH.ID", this.props.auth.id)
-      this.props.getCart(this.props.auth.id) //USER PROPS CREATED 
-      const userId = this.props.auth.id
-      const flowerId = parseInt(this.props.match.params.id)
-      const quantity = parseInt(this.state.selectedQuantity)
-      const orderId = this.props.user[0].id
+      
+      const userId = this.props.auth.id;
+      const flowerId = parseInt(this.props.match.params.id);
+      const quantity = parseInt(this.state.selectedQuantity);
+      const orderId = await this.props.user[0].id
+  
+      console.log("in handleSubmit state:", this.state);
+      console.log("in handleSubmit props:", this.props);
   
       //ADD CART : userId, flowerId, quantity
-      if(this.props.user.length === 0) {  //If NO order 
-      console.log("CONSOLE INSIDE NO ORDER",userId, flowerId, quantity)
-      this.props.addCart(userId, flowerId, quantity)
+      if (this.props.user.length === 0) {
+        console.log('Cart does not exist', this.props.user)
+        this.props.addCart(userId, flowerId, quantity);
       }
-
+  
       //If yes FALSE order and NO this flower
       //ADD TO ORDER : userId, orderId, flowerId, quantity
       else {
-        console.log("ELSE YES CART")
-      this.props.addToOrder(userId, orderId, flowerId, quantity)
+        console.log("Cart exists. orderId: ", this.props.user[0].id);
+        this.props.addToOrder(userId, orderId, flowerId, quantity);
       }
-      //If yes FALSE order and YES this flower 
+      //If yes FALSE order and YES this flower
       //ADD FLOWER : userid, orderdetailid, quantity
-
-
     }
 
     render() {
-      console.log("SINGLE FLOWER PROPS",this.props)
+
       const { name, image, price, description, quantity } = this.props.flower;
       
       let quantityArr = [];
