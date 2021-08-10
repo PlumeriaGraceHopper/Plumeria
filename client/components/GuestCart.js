@@ -1,9 +1,12 @@
 import React from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
-
-export function GuestCart() {
+export function GuestCart(props) {
   let guestCart = JSON.parse(localStorage.getItem("cart"));
+
+  //using this as a workaround to get the delete button to re-render the page
+  const [value, setValue] = useState(1);
 
   function getTotalPrice() {
     let total = 0;
@@ -19,6 +22,13 @@ export function GuestCart() {
       currency: "USD",
     });
     return decimalTotal;
+  }
+
+  const [selectedQuantity, setSelectedQuantity] = useState([]);
+
+  function handleChange(e) {
+    e.preventDefault();
+    setSelectedQuantity(e.target.value);
   }
 
   return guestCart === null ? (
@@ -39,39 +49,88 @@ export function GuestCart() {
           {guestCart.map((item, idx) => {
             //This for loop and renderQuant variable are to put the amount the user has in their cart into the editable dropdown
             let quantityArr = [];
-            for (let i = 0; i <= item.quantity; i++) {
+            for (let i = 0; i <= item.totalStock; i++) {
               quantityArr.push(i);
             }
+            let keyName = item.id
             let renderQuant = quantityArr.map(num => (
-              <option key={num}>{num}</option>
+              <option key={keyName} value={num}>
+                {num}
+              </option>
             ));
 
             return (
               <tr>
+{/* /////////////////Image, Name, Current Quantity, Price/////////////////// */}
                 <td>
                   <img className="orderImage" src={item.image} />
                 </td>
+
                 <td>{item.name}</td>
+
                 <td>{item.quantity}</td>
+
                 <td>
-                  {(item.price * item.quantity) / 100} @ {item.price / 100} per
-                  unit
+                  {((item.price * item.quantity) / 100).toLocaleString(
+                    "en-us",
+                    {
+                      style: "currency",
+                      currency: "USD",
+                    }
+                  )}
+                  <br />@<br />
+                  {(item.price / 100).toLocaleString("en-us", {
+                    style: "currency",
+                    currency: "USD",
+                  })}
+                  per unit
                 </td>
+{/* ///////////////////////Quantity Dropdowns//////////////////////// */}
                 <td>
+                {/*///////Quantity Dropdown///////*/}
                   <div id="quantitySelect">
-                    Quantity:
-                    <select>
+                    <select
                       name="selectedQuantity"
+                      value={selectedQuantity}
+                      onChange={e => handleChange(e)}
+                    >
                       {renderQuant}
                     </select>
                   </div>
+
+                {/*///////Submit New Quantity Button///////*/}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      console.log("userSelectedQuantity", selectedQuantity);
+
+                      guestCart.push({
+                        id: item.id,
+                        image: item.image,
+                        name: item.name,
+                        price: item.price,
+                        quantity: value,
+                        totalStock: item.flowerQuantity,
+                      });
+                      guestCart.splice(idx, 1);
+                      setValue(value + 1);
+                    }}
+                  >
+                    Update Quantity
+                  </button>
                 </td>
+{/* ///////////////////////Delete Button//////////////////////// */}
                 <td>
-                <button type="button" onClick = {() => {
-                    guestCart.splice(idx, 1) 
-                    localStorage.setItem("cart", JSON.stringify(guestCart))
-                
-                }}> Delete Flower</button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      guestCart.splice(idx, 1);
+                      localStorage.setItem("cart", JSON.stringify(guestCart));
+                      setValue(value + 1);
+                    }}
+                  >
+                    Delete From Cart
+                  </button>
                 </td>
               </tr>
             );
@@ -88,10 +147,14 @@ export function GuestCart() {
         </tbody>
       </table>
       <Link to="/login">
-            <button className="button" type="button">Sign In to Complete Order</button>
-            {/* This should be done on the login page - if there is cart in local storage, add it to our database cart! 
+        <button className="button" type="button">
+          Log In to Complete Order
+        </button>
+        {/* This should be done on the login page - if there is cart in local storage, add it to our database cart!
             ALSO NEEDS TO HAPPEN IF THEY SIGN UP.  */}
-          </Link>
+      </Link>
     </div>
   );
 }
+
+export default GuestCart;

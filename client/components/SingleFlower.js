@@ -47,7 +47,7 @@ export class SingleFlower extends React.Component {
 
       //   this.props.addToOrder(userId, orderId, flowerId, quantity);
     } else {
-      const { id, name, image, price } = this.props.flower;
+      const { id, name, image, price, flowerQuantity } = this.props.flower;
       const quantity = this.state.selectedQuantity;
       const cartInLocalStorage = localStorage.getItem("cart");
 
@@ -69,6 +69,11 @@ export class SingleFlower extends React.Component {
           let existingId = items[i].id;
           if (existingId === id) {
             let pastQuantity = items[i].quantity
+            if (parseInt(quantity) > (flowerQuantity - parseInt(pastQuantity))){
+              console.log(quantity, flowerQuantity, pastQuantity)
+              window.alert(`Low Stock: Please add ${flowerQuantity - parseInt(pastQuantity)} or fewer.`)
+              return;
+            }
             items.splice(i, 1)
             items.push({
               id: id,
@@ -76,10 +81,9 @@ export class SingleFlower extends React.Component {
               name: name,
               price: price,
               quantity: parseInt(quantity) + parseInt(pastQuantity),
+              totalStock: flowerQuantity
             });
             return;
-            //This needs to UPDATE the guest order detail, not add a new order detail. But the logic is solid. 
-            //Currently it does nothing but it doesn't add a NEW order detail which is a start! 
           }
         }
         items.push({
@@ -89,6 +93,7 @@ export class SingleFlower extends React.Component {
           name: name,
           price: price,
           quantity: quantity,
+          totalStock: parseInt(this.props.flower.quantity)
         });
       })();
 
