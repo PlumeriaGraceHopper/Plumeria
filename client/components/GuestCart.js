@@ -46,7 +46,6 @@ export function GuestCart(props) {
           </tr>
 
           {guestCart.map((item, idx) => {
-              console.log('test', item)
             //This for loop and renderQuant variable are to put the amount the user has in their cart into the editable dropdown
             let quantityArr = [];
             for (let i = 1; i <= item.totalStock; i++) {
@@ -54,9 +53,7 @@ export function GuestCart(props) {
             }
 
             let renderQuant = quantityArr.map(num => (
-              <option value={num}>
-                {num}
-              </option>
+              <option value={num}>{num}</option>
             ));
 
             return (
@@ -86,11 +83,11 @@ export function GuestCart(props) {
                   per unit
                 </td>
 {/* ///////////////////////Quantity Dropdowns//////////////////////// */}
-                <td>
                 {/*///////Quantity Dropdown///////*/}
+                <td>
                   <div id="quantitySelect">
                     <select
-                      key={item.id} 
+                      key={item.id}
                       name="selectedQuantity"
                       value={selectedQuantity}
                       onChange={e => handleChange(e)}
@@ -99,11 +96,13 @@ export function GuestCart(props) {
                     </select>
                   </div>
 
-                {/*///////Submit New Quantity Button///////*/}
+                  {/*///////Submit New Quantity Button///////*/}
                   <button
                     type="button"
                     onClick={() => {
-                      console.log("userSelectedQuantity", selectedQuantity);
+                      if (item.quantity === selectedQuantity) {
+                        return;
+                      }
 
                       guestCart.push({
                         id: item.id,
@@ -152,8 +151,7 @@ export function GuestCart(props) {
         <button className="button" type="button">
           Log In to Complete Order
         </button>
-        {/* This should be done on the login page - if there is cart in local storage, add it to our database cart!
-            ALSO NEEDS TO HAPPEN IF THEY SIGN UP.  */}
+        {/* This should be done on the login page - if there is cart in local storage, add it to our database cart! This should also happen if they sign up. */}
       </Link>
     </div>
   );

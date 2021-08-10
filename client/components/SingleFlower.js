@@ -13,7 +13,7 @@ import {
 export class SingleFlower extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { selectedQuantity: 0 };
+    this.state = { selectedQuantity: 0, addedToCartMessage: '' };
   }
   componentDidMount() {
     this.props.getFlower(this.props.match.params.id);
@@ -47,7 +47,7 @@ export class SingleFlower extends React.Component {
 
       //   this.props.addToOrder(userId, orderId, flowerId, quantity);
     } else {
-      const { id, name, image, price, flowerQuantity } = this.props.flower;
+      const { id, name, image, price } = this.props.flower;
       const quantity = this.state.selectedQuantity;
       const cartInLocalStorage = localStorage.getItem("cart");
 
@@ -60,18 +60,19 @@ export class SingleFlower extends React.Component {
 
       const addItems = (() => {
         if (quantity === 0){
-          window.alert("Please choose a quantity!")
-          //Could also make this appear as text on the page, which might be nicer. 
+          this.setState({addedToCartMessage: "Please select a quantity to add."}) 
           return;
         }
+
+        
         
         for (let i = 0; i < items.length; i++) {
           let existingId = items[i].id;
           if (existingId === id) {
             let pastQuantity = items[i].quantity
-            if (parseInt(quantity) > (flowerQuantity - parseInt(pastQuantity))){
-              console.log(quantity, flowerQuantity, pastQuantity)
-              window.alert(`Low Stock: Please add ${flowerQuantity - parseInt(pastQuantity)} or fewer.`)
+            console.log(parseInt(this.props.flower.quantity) - parseInt(pastQuantity))
+            if (parseInt(quantity) > (parseInt(this.props.flower.quantity) - parseInt(pastQuantity))){
+              window.alert(`Low Stock: Please add ${parseInt(this.props.flower.quantity) - parseInt(pastQuantity)} or fewer.`)
               return;
             }
             items.splice(i, 1)
@@ -81,7 +82,7 @@ export class SingleFlower extends React.Component {
               name: name,
               price: price,
               quantity: parseInt(quantity) + parseInt(pastQuantity),
-              totalStock: flowerQuantity
+              totalStock: parseInt(this.props.flower.quantity)
             });
             return;
           }
@@ -130,6 +131,7 @@ export class SingleFlower extends React.Component {
         <button onClick={e => this.handleSubmit(e)} className="button">
           Add To Cart
         </button>
+        {this.state.addedToCartMessage}
       </div>
     );
   }
