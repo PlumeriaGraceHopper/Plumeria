@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { logout } from "../store";
-import { fetchCart } from "../store/singleUser";
+import { fetchCart } from "../store/cart";
 import { me } from "../store";
 
 

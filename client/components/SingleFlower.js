@@ -2,56 +2,64 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {withRouter} from "react-router-dom";
 import {fetchSingleFlower} from '../store/singleFlower';
-import { fetchCart} from '../store/singleUser';
-import { me } from "../store";
-import { fetchAddCart, fetchAddToOrder, fetchUpdateFlower } from '../store/singleUser';
+import { fetchCart, fetchAddCart, fetchAddToOrder, fetchUpdateFlower} from '../store/cart';
 
 export class SingleFlower extends React.Component {
     constructor(props){
       super(props);
-      this.state = { selectedQuantity: 0 }
+      this.state = { 
+        selectedQuantity: 0 
+      }
     }
     componentDidMount(){
-
       this.props.getFlower(this.props.match.params.id)
-      console.log('SINGLE FLOWER PROPS',this.props)
+      this.props.getCart(window.localStorage.token)
     }
     
     handleChange(event) {
       this.setState({
         selectedQuantity: event.target.value,
+      
       });
-
     }
   
-    async handleSubmit(event) {
+    handleSubmit(event) {
       event.preventDefault();
-      
-      const userId = this.props.auth.id;
+      const cart = this.props.cart
+      const orderId = this.props.cart.id
+      const token = window.localStorage.token
       const flowerId = parseInt(this.props.match.params.id);
       const quantity = parseInt(this.state.selectedQuantity);
+      const orderDetailArr = this.props.cart.OrderDetails.filter((element) => {
+        if (element.flowerId === flowerId) {
+          console.log("FLOWER CHECK", element.flowerId, flowerId)
+          return element.id
+        }
+      } ); 
+      const orderDetailId = orderDetailArr[0].id
+
+      console.log("WHAT IS OD ID", orderDetailId)
+      //find if flowerid is in flowerid of order detail
+
+      if (cart && orderDetailId ) {  //if both cart and flower UPDATE QUANT
+        //token, orderDetail, quantity
+        console.log("UPDATE FLOWER", cart)
+        this.props.updateFlowerQuantity (token, orderDetailId, quantity )
       
-  
-  
-      //ADD CART : userId, flowerId, quantity
-      if (this.props.user.length === 0) {
-        
-        this.props.addCart(userId, flowerId, quantity);
+      } else if (cart) { //if cart, add ORDERDETAIL 
+        this.props.addToOrder(token, orderId, flowerId, quantity)
+        console.log("ADDED TO ORDER", cart)
       }
-  
-      //If yes FALSE order and NO this flower
-      //ADD TO ORDER : userId, orderId, flowerId, quantity
-      else {
-        const orderId = await this.props.user[0].id
-       
-        this.props.addToOrder(userId, orderId, flowerId, quantity);
+      
+      else { //if no cart
+        this.addCart(token, flowerId, quantity)
       }
-      //If yes FALSE order and YES this flower
-      //ADD FLOWER : userid, orderdetailid, quantity
+
     }
-
-    render() {
-
+    
+  
+      render() {
+      console.log("USERCART WORKS!!!",this.props.cart)
       const { name, image, price, description, quantity } = this.props.flower;
       
       let quantityArr = [];
@@ -80,20 +88,19 @@ export class SingleFlower extends React.Component {
 
 const mapState = (state) => {
     return {
-      auth: state.auth,
       flower: state.flower,
-      user: state.user //cart
+      cart: state.cart //cart
     };
   };
   
   const mapDispatch = (dispatch) => {
     return {
+      getMe : () => {dispatch(me())},
       getFlower: (id) => {dispatch(fetchSingleFlower(id))},
-      // getCart : (id) => {dispatch(fetchCart(id))},
-      // getMe : () => {dispatch(me())},
-      addCart: (userId, flowerId, quantity) => {dispatch(fetchAddCart(userId, flowerId, quantity))},
-      addToOrder: (userId, orderId, flowerId, quantity) => {dispatch(fetchAddToOrder(userId, orderId, flowerId, quantity))},
-
+      getCart : (token) => {dispatch(fetchCart(token))},
+      addCart: (token,flowerId, quantity) => {dispatch(fetchAddCart(token, flowerId, quantity))},
+      addToOrder: (token, orderId, flowerId, quantity) => {dispatch(fetchAddToOrder(token, orderId, flowerId, quantity))},
+      updateFlowerQuantity : (token, orderDetail, quantity) => {dispatch(fetchUpdateFlower(token, orderDetail, quantity))}
     };
   };
   
