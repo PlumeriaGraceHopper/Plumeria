@@ -45,17 +45,18 @@ module.exports = router
 // })
 
 
-//EVERYTHING AHEAD OF YOU WILL NOW BE ACCESSED VIA */api/cart* (unless you want to change it)
+//EVERYTHING AHEAD OF YOU WILL NOW BE ACCESSED VIA */api/cart* 
 
 
 //api/cart , return false orders
 router.get('/', requireToken, async (req, res, next) => {
   try {
-    const user = req.user; // this returns the user from middleware
-    const order = await Order.findAll({
+    console.log("API/CART CHECKKKKK")
+    const userId = req.user.id; // this returns the user from middleware
+    const order = await Order.findOne({
       where: {
         completed: false,
-        userId: user
+        userId: userId
       },
       include: OrderDetail
     })
@@ -67,7 +68,7 @@ router.get('/', requireToken, async (req, res, next) => {
 })
 
 //do we need user id here? should we need user id here? big security question... 
-router.delete('/:orderDetailId', async (req, res, next) => {
+router.delete('/:orderDetailId', requireToken, async (req, res, next) => {
   const orderDetailId = req.params.orderDetailId
   // const user = req.user;
   try {
@@ -100,11 +101,14 @@ router.post('/:flowerId/:quantity', requireToken, async (req, res, next) => {
 })
 
 //case if: order exists but no order detail: ADDTOORDER
-router.post(':OrderId/:flowerId/:quantity', async (req, res, next) => {
+router.post('/:OrderId/:flowerId/:quantity', requireToken, async (req, res, next) => {
   try{
+    const user = req.user
     const order = await Order.findByPk(req.params.OrderId)
     const flower = await Flower.findByPk(req.params.flowerId)
     const quantity = req.params.quantity
+
+    console.log("IN POST ORDER", order,flower,quantity);
 
     const newOrderDetail = await OrderDetail.create({quantity})
     // await user.addOrder(newOrder)
@@ -113,6 +117,7 @@ router.post(':OrderId/:flowerId/:quantity', async (req, res, next) => {
     const orderDetail = await OrderDetail.findByPk(newOrderDetail.id)
     await flower.addOrderDetail(orderDetail)
     
+    console.log("SENDING ORDER DETAIL", newOrderDetail)
 
     res.send(newOrderDetail)
   }
@@ -120,14 +125,13 @@ router.post(':OrderId/:flowerId/:quantity', async (req, res, next) => {
 })
 
 //case if: order exists & order detail exists: UPDATEFLOWER
-router.put('/:OrderId/:OrderDetailId/:quantity', async (req, res, next) => {
+router.put('/:OrderDetail/:quantity', requireToken, async (req, res, next) => {
   try{
-    const orderDetail = await OrderDetail.findByPk(req.params.OrderDetailId)
     const quantity = req.params.quantity
+    const orderDetailId = req.params.OrderDetail
+    const orderDetail = await OrderDetail.findByPk(orderDetailId)
     await orderDetail.update({quantity})
-    const order = await Order.findByPk(req.params.OrderId)
-    res.send(order)
-    
+    res.send(orderDetail)
   }
   catch(err){next(err)}
 })
