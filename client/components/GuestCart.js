@@ -27,7 +27,6 @@ export function GuestCart(props) {
   const [selectedQuantity, setSelectedQuantity] = useState([]);
 
   function handleChange(e) {
-    e.preventDefault();
     setSelectedQuantity(e.target.value);
   }
 
@@ -47,14 +46,15 @@ export function GuestCart(props) {
           </tr>
 
           {guestCart.map((item, idx) => {
+              console.log('test', item)
             //This for loop and renderQuant variable are to put the amount the user has in their cart into the editable dropdown
             let quantityArr = [];
             for (let i = 0; i <= item.totalStock; i++) {
               quantityArr.push(i);
             }
-            let keyName = item.id
+
             let renderQuant = quantityArr.map(num => (
-              <option key={keyName} value={num}>
+              <option value={num}>
                 {num}
               </option>
             ));
@@ -90,6 +90,7 @@ export function GuestCart(props) {
                 {/*///////Quantity Dropdown///////*/}
                   <div id="quantitySelect">
                     <select
+                      key={item.id} 
                       name="selectedQuantity"
                       value={selectedQuantity}
                       onChange={e => handleChange(e)}
@@ -109,10 +110,11 @@ export function GuestCart(props) {
                         image: item.image,
                         name: item.name,
                         price: item.price,
-                        quantity: value,
-                        totalStock: item.flowerQuantity,
+                        quantity: selectedQuantity,
+                        totalStock: item.totalStock,
                       });
                       guestCart.splice(idx, 1);
+                      localStorage.setItem("cart", JSON.stringify(guestCart));
                       setValue(value + 1);
                     }}
                   >
