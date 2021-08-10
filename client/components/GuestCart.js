@@ -60,10 +60,10 @@ export function GuestCart(props) {
               <tr>
 {/* /////////////////Image, Name, Current Quantity, Price/////////////////// */}
                 <td>
-                  <img className="orderImage" src={item.image} />
+                 <Link to={`/flowers/${item.id}`}> <img className="orderImage" src={item.image} /> </Link>
                 </td>
 
-                <td>{item.name}</td>
+                <td><Link to={`/flowers/${item.id}`}>{item.name}</Link></td>
 
                 <td>{item.quantity}</td>
 
