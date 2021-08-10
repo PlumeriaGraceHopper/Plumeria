@@ -255,6 +255,126 @@ async function seed() {
       color: "blue",
       quantity: 18,
     }),
+    Flower.create({
+      name: "Mum",
+      price: 999,
+      description:
+        "Nullam commodo, justo at sollicitudin rhoncus, urna quam rutrum ex, vitae facilisis nulla mauris vitae velit. ",
+      image:
+        "https://h2.commercev3.net/cdn.springhillnursery.com/images/400/63372.jpg",
+      color: "white",
+      quantity: 18,
+    }),
+    Flower.create({
+      name: "Heuchera",
+      price: 1899,
+      description:
+        "Nullam commodo, justo at sollicitudin rhoncus, urna quam rutrum ex, vitae facilisis nulla mauris vitae velit. ",
+      image:
+        "https://h2.commercev3.net/cdn.springhillnursery.com/images/400/73347A.jpg",
+      color: "purple",
+      quantity: 18,
+    }),
+    Flower.create({
+      name: "Dianthus",
+      price: 2249,
+      description:
+        "Nullam commodo, justo at sollicitudin rhoncus, urna quam rutrum ex, vitae facilisis nulla mauris vitae velit. ",
+      image:
+        "https://h2.commercev3.net/cdn.springhillnursery.com/images/400/63909A.jpg",
+      color: "pink",
+      quantity: 18,
+    }),
+    Flower.create({
+      name: "Varigated Crowns",
+      price: 1999,
+      description:
+        "Nullam commodo, justo at sollicitudin rhoncus, urna quam rutrum ex, vitae facilisis nulla mauris vitae velit. ",
+      image:
+        "https://h2.commercev3.net/cdn.springhillnursery.com/images/400/71436.jpg",
+      color: "red",
+      quantity: 18,
+    }),
+    Flower.create({
+      name: "Lenten Rose",
+      price: 2999,
+      description:
+        "Nullam commodo, justo at sollicitudin rhoncus, urna quam rutrum ex, vitae facilisis nulla mauris vitae velit. ",
+      image:
+        "https://h2.commercev3.net/cdn.springhillnursery.com/images/400/66378A.jpg",
+      color: "red",
+      quantity: 18,
+    }),
+    Flower.create({
+      name: "Albelia",
+      price: 1999,
+      description:
+        "Nullam commodo, justo at sollicitudin rhoncus, urna quam rutrum ex, vitae facilisis nulla mauris vitae velit. ",
+      image:
+        "https://h2.commercev3.net/cdn.springhillnursery.com/images/400/62962A.jpg",
+      color: "red",
+      quantity: 18,
+    }),
+    Flower.create({
+      name: "Coreopsis",
+      price: 1499,
+      description:
+        "Nullam commodo, justo at sollicitudin rhoncus, urna quam rutrum ex, vitae facilisis nulla mauris vitae velit. ",
+      image:
+        "https://h2.commercev3.net/cdn.springhillnursery.com/images/400/61168.jpg",
+      color: "white",
+      quantity: 18,
+    }),
+    Flower.create({
+      name: "Rainbow Coneflower",
+      price: 1799,
+      description:
+        "Nullam commodo, justo at sollicitudin rhoncus, urna quam rutrum ex, vitae facilisis nulla mauris vitae velit. ",
+      image:
+        "https://h2.commercev3.net/cdn.springhillnursery.com/images/400/78119.jpg",
+      color: "pink",
+      quantity: 18,
+    }),
+    Flower.create({
+      name: "Lavender",
+      price: 2499,
+      description:
+        "Nullam commodo, justo at sollicitudin rhoncus, urna quam rutrum ex, vitae facilisis nulla mauris vitae velit. ",
+      image:
+        "https://h2.commercev3.net/cdn.springhillnursery.com/images/400/79408A.jpg",
+      color: "purple",
+      quantity: 18,
+    }),
+    Flower.create({
+      name: "Toad Lily",
+      price: 1799,
+      description:
+        "Nullam commodo, justo at sollicitudin rhoncus, urna quam rutrum ex, vitae facilisis nulla mauris vitae velit. ",
+      image:
+        "https://h2.commercev3.net/cdn.springhillnursery.com/images/400/62429A.jpg",
+      color: "pink",
+      quantity: 18,
+    }),
+    Flower.create({
+      name: "Pastel Daylily",
+      price: 1799,
+      description:
+        "Nullam commodo, justo at sollicitudin rhoncus, urna quam rutrum ex, vitae facilisis nulla mauris vitae velit. ",
+      image:
+        "https://h2.commercev3.net/cdn.springhillnursery.com/images/400/63020A.jpg",
+      color: "yellow",
+      quantity: 18,
+    }),
+    Flower.create({
+      name: "Ajuga",
+      price: 1799,
+      description:
+        "Nullam commodo, justo at sollicitudin rhoncus, urna quam rutrum ex, vitae facilisis nulla mauris vitae velit. ",
+      image:
+        "https://h2.commercev3.net/cdn.springhillnursery.com/images/400/63390A.jpg",
+      color: "purple",
+      quantity: 18,
+    }),
   ]);
 
   const [plumeria, lily, wysteria, hydrangea, lotv, lemon, tulip, peony, rose] =
