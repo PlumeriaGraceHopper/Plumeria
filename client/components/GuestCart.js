@@ -5,24 +5,21 @@ import React from "react";
 export function GuestCart() {
   let guestCart = JSON.parse(localStorage.getItem("cart"));
 
-  function getTotalPrice(){
-      let total = 0
+  function getTotalPrice() {
+    let total = 0;
 
-      guestCart.map(item => {
-          let flowerPrice = item.price
-          total += flowerPrice * item.quantity
-      })
+    guestCart.map(item => {
+      let flowerPrice = item.price;
+      total += flowerPrice * item.quantity;
+    });
 
-    let dividedTotal = total/100
-    let decimalTotal = dividedTotal.toLocaleString('en-us', {
-      style: 'currency',
-      currency: 'USD'
-    })
-    return decimalTotal
+    let dividedTotal = total / 100;
+    let decimalTotal = dividedTotal.toLocaleString("en-us", {
+      style: "currency",
+      currency: "USD",
+    });
+    return decimalTotal;
   }
-
-
-
 
   return guestCart === null ? (
     "No items in cart."
@@ -40,12 +37,14 @@ export function GuestCart() {
           </tr>
 
           {guestCart.map(item => {
-                let quantityArr = [];
-                for (let i = 0; i <= item.quantity; i++) {
-                  quantityArr.push(i);
-                }
-              
-                let renderQuant = quantityArr.map(num => <option key={num}>{num}</option>);
+            let quantityArr = [];
+            for (let i = 0; i <= item.quantity; i++) {
+              quantityArr.push(i);
+            }
+
+            let renderQuant = quantityArr.map(num => (
+              <option key={num}>{num}</option>
+            ));
             return (
               <tr>
                 <td>
@@ -58,19 +57,17 @@ export function GuestCart() {
                   unit
                 </td>
                 <td>
-                  
                   <div id="quantitySelect">
-                Quantity:
-                <select>
-                    name="selectedQuantity"
-                    {renderQuant}
-                </select>
-                        </div>
+                    Quantity:
+                    <select>
+                      name="selectedQuantity"
+                      {renderQuant}
+                    </select>
+                  </div>
                 </td>
                 <td>
-                  <button>
-                    Delete Flower Someday
-                  </button>
+                  <button>Delete Flower Someday</button>
+                    {/* This needs to be done with SPLICE; so I need the item index and i just CAN'T figure out how to get it from here because it's LATE and i'm TIRED */}
                 </td>
               </tr>
             );
@@ -86,6 +83,11 @@ export function GuestCart() {
           </tr>
         </tbody>
       </table>
+      <Link to="/login">
+            <button className="button" type="button">Sign In to Complete Order</button>
+            {/* This should be done on the login page - if there is cart in local storage, add it to our database cart! 
+            ALSO NEEDS TO HAPPEN IF THEY SIGN UP.  */}
+          </Link>
     </div>
   );
 }

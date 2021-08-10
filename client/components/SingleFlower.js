@@ -28,9 +28,9 @@ export class SingleFlower extends React.Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-    console.log
+    console.log;
     if (this.props.isLoggedIn) {
-      console.log("you're logged in!")
+      console.log("you're logged in!");
       // let userId = this.props.auth.id;
       // const flowerId = parseInt(this.props.match.params.id);
       // const quantity = parseInt(this.state.selectedQuantity);
@@ -46,25 +46,42 @@ export class SingleFlower extends React.Component {
       //   const orderId = await this.props.user[0].id;
 
       //   this.props.addToOrder(userId, orderId, flowerId, quantity);
-      }
-     else {
+    } else {
       const { id, name, image, price } = this.props.flower;
-      const quantity = this.state.selectedQuantity
-    
-      const items = ( () => {
-        const cartInLocalStorage = localStorage.getItem('cart')
-        return cartInLocalStorage === null 
+      const quantity = this.state.selectedQuantity;
+      const cartInLocalStorage = localStorage.getItem("cart");
+
+      const items = (() => {
+        
+        return cartInLocalStorage === null
         ? []
         : JSON.parse(cartInLocalStorage)
-      })(); 
+      })();
 
+      const addItems = (() => {
+        if (quantity === 0){
+          window.alert("Please choose a quantity!")
+          return;
+        }
+        for (let i = 0; i < items.length; i++) {
+          let existingId = items[i].id;
+          if (existingId === id) {
+            
+            return;
+            //This needs to UPDATE the guest order detail, not add a new order detail. But the logic is solid. 
+            //Currently it does nothing but it doesn't add a NEW order detail which is a start! 
+          }
+        }
+        items.push({
+          id: id,
+          image: image,
+          name: name,
+          price: price,
+          quantity: quantity,
+        });
+      })();
 
-      
-      items.push({'id': id, 'image': image, 'name': name, 'price': price, 'quantity': quantity})
-      
-
-      localStorage.setItem('cart', JSON.stringify(items))
-
+      localStorage.setItem("cart", JSON.stringify(items));
     }
   }
 
@@ -97,7 +114,6 @@ export class SingleFlower extends React.Component {
         <button onClick={e => this.handleSubmit(e)} className="button">
           Add To Cart
         </button>
-        
       </div>
     );
   }
