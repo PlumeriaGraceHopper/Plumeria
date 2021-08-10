@@ -24,7 +24,7 @@ export function GuestCart(props) {
     return decimalTotal;
   }
 
-  const [selectedQuantity, setSelectedQuantity] = useState([]);
+  const [selectedQuantity, setSelectedQuantity] = useState([1]);
 
   function handleChange(e) {
     setSelectedQuantity(e.target.value);
@@ -49,7 +49,7 @@ export function GuestCart(props) {
               console.log('test', item)
             //This for loop and renderQuant variable are to put the amount the user has in their cart into the editable dropdown
             let quantityArr = [];
-            for (let i = 0; i <= item.totalStock; i++) {
+            for (let i = 1; i <= item.totalStock; i++) {
               quantityArr.push(i);
             }
 
