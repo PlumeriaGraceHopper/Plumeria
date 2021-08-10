@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { fetchCart, removeItemFromCart } from "../store/singleUser";
+import { fetchCart, removeItemFromCart } from "../store/cart";
 import { fetchFlowers } from "../store/allFlowers";
 
 import { me } from "../store";
@@ -9,7 +9,6 @@ import { me } from "../store";
 export class Cart extends React.Component {
   componentDidMount() {
 
-    // this.props.getCart(this.props.match.params.userId);
     this.props.getFlowers();
   }
 
@@ -21,7 +20,7 @@ export class Cart extends React.Component {
   getTotalPrice(){
     let total = 0
 
-    this.props.user.map(item => {
+    this.props.cart.map(item => {
       return item.OrderDetails.map(detail => {
         let flower = this.props.flowers.filter(
           flower => flower.id === detail.flowerId
@@ -64,7 +63,7 @@ export class Cart extends React.Component {
               <td>Remove Item</td>
             </tr>
             
-            {this.props.user.map(item => {
+            {this.props.cart.map(item => {
               return item.OrderDetails.map(detail => {
                 let flower = this.props.flowers.filter(
                   flower => flower.id === detail.flowerId
@@ -120,9 +119,10 @@ export class Cart extends React.Component {
 
 const mapState = state => {
   return {
-    user: state.user,
+    cart: state.cart,
     flowers: state.flowers,
     isLoggedIn: !!state.auth.id,
+    auth: state.id
   };
 };
 
