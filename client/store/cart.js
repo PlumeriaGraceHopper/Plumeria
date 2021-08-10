@@ -110,6 +110,8 @@ export const fetchUpdateFlower = (token, OrderDetail, quantity ) => { //same her
 //this is now going to be state.cart 
 export default function cartReducer(state = {}, action) { //REMEMBER STATE.CART IS NOW EMPTY OBJ {} 
   switch (action.type) {
+
+
     case SET_CART: 
       return action.order;
     case REMOVE_ITEM:
@@ -121,15 +123,19 @@ export default function cartReducer(state = {}, action) { //REMEMBER STATE.CART 
     case UPDATE_FLOWER: 
       return {
         // state.map((robot) => {return robot.id === action.robot.id ? action.robot : robot});
-        ...state, OrderDetails : [OrderDetails.map((eachOrder) => {
+        ...state, OrderDetails : OrderDetails.map((eachOrder) => {
           if (eachOrder.id === action.orderDetail.id) {
             eachOrder.quantity = action.orderDetail.quantity //or we can make it = action.orderDetail?
-       } return eachOrder
-      },]
-    }
+          } return eachOrder
+        })
+     }
         //...state, OrderDetails: [...state.OrderDetails, action.orderDetail.quantity]}    
-    default:
-      return state;
+        default:
+          return state;
+    }
   }
+
+
+
+
   
-}

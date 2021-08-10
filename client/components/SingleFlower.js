@@ -84,7 +84,34 @@ export class SingleFlower extends React.Component {
             </div>
         )
     }
+
+    
+    let renderQuant = quantityArr.map(num => <option key={num}>{num}</option>);
+    return (
+      <div id="singleflower">
+        <h2>{name}</h2>
+        <div>
+          <img src={image} />
+        </div>
+        <h3>${price / 100}</h3>
+        <h3>{description}</h3>
+        <div id="quantitySelect">
+          Quantity:
+          <select
+            name="selectedQuantity"
+            value={this.state.selectedQuantity}
+            onChange={e => this.handleChange(e)}
+          >
+            {renderQuant}
+          </select>
+        </div>
+        <button onClick={e => this.handleSubmit(e)} className="button">
+          Add To Cart
+        </button>
+      </div>
+    );
 }
+
 
 const mapState = (state) => {
     return {
@@ -103,6 +130,6 @@ const mapState = (state) => {
       updateFlowerQuantity : (token, orderDetail, quantity) => {dispatch(fetchUpdateFlower(token, orderDetail, quantity))}
     };
   };
-  
-  export default withRouter(connect(mapState, mapDispatch)(SingleFlower));
-  
+
+
+export default withRouter(connect(mapState, mapDispatch)(SingleFlower));

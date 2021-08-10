@@ -8,6 +8,7 @@ import SingleFlower from "./components/SingleFlower";
 import Cart from "./components/Cart";
 import Payment from "./components/Payment"
 import Confirm from "./components/OrderConfirmation"
+import { GuestCart } from "./components/GuestCart"
 import { me } from "./store";
 import { fetchCart } from "./store/cart";
 
@@ -45,6 +46,7 @@ class Routes extends Component {
             <Route path="/signup" component={Signup} />
             <Route exact path="/flowers" component={AllFlowers} />
             <Route path="/flowers/:id" component={SingleFlower} />
+            <Route path = "/cart" component={GuestCart} />
           </Switch>
         )}
       </div>
