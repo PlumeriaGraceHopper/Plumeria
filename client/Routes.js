@@ -8,6 +8,7 @@ import SingleFlower from "./components/SingleFlower";
 import Cart from "./components/Cart";
 import Payment from "./components/Payment"
 import Confirm from "./components/OrderConfirmation"
+import { GuestCart } from "./components/GuestCart"
 import { me } from "./store";
 import { fetchCart } from "./store/singleUser";
 
@@ -16,8 +17,6 @@ import { fetchCart } from "./store/singleUser";
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData();
-    console.log('auth id:', this.props.auth.id)
-    // this.props.loadCart(this.props.auth.id)
   }
 
   render() {
@@ -32,8 +31,8 @@ class Routes extends Component {
           <Switch>
             <Route path="/" exact component={Home} />
             <Route exact path="/flowers" render={(props)=> <AllFlowers {...props} />}/>
-            <Route path="/flowers/:id" render={()=><SingleFlower auth= {this.props.auth} user={()=> this.props.loadCart(this.props.auth.id)}/>} />
-            <Route path="/users/:userId/cart" render={()=><Cart auth= {this.props.auth} user={()=> this.props.loadCart(this.props.auth.id)}/>} />
+            <Route path="/flowers/:id" render={()=><SingleFlower auth= {this.props.auth} />} />
+            <Route path="/users/:userId/cart" render={()=><Cart auth= {this.props.auth} />} />
             <Route path="/payment" component={Payment} />
             <Route path = "/confirmation" component={Confirm} />
 
@@ -45,6 +44,7 @@ class Routes extends Component {
             <Route path="/signup" component={Signup} />
             <Route exact path="/flowers" component={AllFlowers} />
             <Route path="/flowers/:id" component={SingleFlower} />
+            <Route path = "/cart" component={GuestCart} />
           </Switch>
         )}
       </div>
