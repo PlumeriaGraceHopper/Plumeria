@@ -61,13 +61,22 @@ export class SingleFlower extends React.Component {
       const addItems = (() => {
         if (quantity === 0){
           window.alert("Please choose a quantity!")
+          //Could also make this appear as text on the page, which might be nicer. 
           return;
         }
         
         for (let i = 0; i < items.length; i++) {
           let existingId = items[i].id;
           if (existingId === id) {
-            
+            let pastQuantity = items[i].quantity
+            items.splice(i, 1)
+            items.push({
+              id: id,
+              image: image,
+              name: name,
+              price: price,
+              quantity: parseInt(quantity) + parseInt(pastQuantity),
+            });
             return;
             //This needs to UPDATE the guest order detail, not add a new order detail. But the logic is solid. 
             //Currently it does nothing but it doesn't add a NEW order detail which is a start! 
