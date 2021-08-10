@@ -45,7 +45,7 @@ router.get('/:userId', async (req, res, next) => {
 
 router.get('/:userId/cart', async (req, res, next) => {
   try {
-    const order = await Order.findAll({
+    const order = await Order.findOne({
       where: {
         completed: false,
         userId: req.params.userId
@@ -62,7 +62,6 @@ router.get('/:userId/cart', async (req, res, next) => {
 router.delete('/:orderDetailId', async (req, res, next) => {
   const orderDetailId = req.params.orderDetailId
 
-  console.log(orderDetailId)
   try {
   const removeItem =  await OrderDetail.findByPk(orderDetailId);
   await removeItem.destroy();
@@ -72,21 +71,6 @@ router.delete('/:orderDetailId', async (req, res, next) => {
   }
 })
 
-//CART PLAN: 
-// magic methods are: 
-
-//flower.addOrderDetail({orderDetail we've created})
-//ordernumber.addOrderDetail({orderDetail we've created})
-//user.addOrder({ordernumber of the current order})
-
-//This all happens when we click the Add To Cart button: 
-
-//Needs to know if it's adding to an existing order or if it needs to create a new Order
-//if order doesn't exists, we need to create the order and use magic method to associate with user 
-//if it does, checks state and sees that there's an order, and then adds to that order
-//create order detail
-//checks cart if order detail already has flower ID, if yes, updates quantity, if no, adds new order detail
-//if adding new order detail, need to associate with flower, and with order 
 
 //case if: no order & no order detail:
 router.post('/:userId/:flowerId/:quantity', async (req, res, next) => {
@@ -116,10 +100,11 @@ router.post('/:userId/:OrderId/:flowerId/:quantity', async (req, res, next) => {
     const quantity = req.params.quantity
 
     const newOrderDetail = await OrderDetail.create({quantity})
-
     // await user.addOrder(newOrder)
     await order.addOrderDetail(newOrderDetail)
-    await flower.adOrderDetail(newOrderDetail)
+
+    const orderDetail = await OrderDetail.findByPk(newOrderDetail.id)
+    await flower.addOrderDetail(orderDetail)
     
 
     res.send(newOrderDetail)

@@ -1,28 +1,26 @@
 import React from "react";
 import { withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { fetchCart, removeItemFromCart } from "../store/singleUser";
+import { fetchCart, removeItemFromCart } from "../store/cart";
 import { fetchFlowers } from "../store/allFlowers";
 
 import { me } from "../store";
 
 export class Cart extends React.Component {
   componentDidMount() {
-    this.props.getCart(this.props.match.params.userId);
+
     this.props.getFlowers();
   }
 
   handleSubmit(event, id) {
     event.preventDefault()
-    console.log("THIS IS THE HANDLE SUBMIT")
-    console.log("THIS IS THE HANDLE SUBMIT ID", id)
     this.props.removeItem(id)
   }
 
   getTotalPrice(){
     let total = 0
 
-    this.props.user.map(item => {
+    this.props.cart.map(item => {
       return item.OrderDetails.map(detail => {
         let flower = this.props.flowers.filter(
           flower => flower.id === detail.flowerId
@@ -43,8 +41,33 @@ export class Cart extends React.Component {
     //let decimal = decimalTotal.findIndexOf('.')
     return decimalTotal
   }
+  // getTotalPrice(){
+  //   let total = 0
+
+  //   this.props.user.map(item => {
+  //     return item.OrderDetails.map(detail => {
+  //       let flower = this.props.flowers.filter(
+  //         flower => flower.id === detail.flowerId
+  //       );
+  //       return (
+  //         total += parseInt(flower.map(info => info.price).join(''))*parseInt(flower.map(info => info.quantity).join(''))
+  //       );
+  //     });
+  //   })
+
+  //   let dividedTotal = total/100
+
+  //   let decimalTotal = dividedTotal.toLocaleString('en-us', {
+  //     style: 'currency',
+  //     currency: 'USD'
+  //   })
+
+  //   //let decimal = decimalTotal.findIndexOf('.')
+  //   return decimalTotal
+  // }
 
   render() {
+    console.log('PROPS IN CART:', this.props)
     const { isLoggedIn } = this.props;
     return (
       <div>
@@ -64,8 +87,8 @@ export class Cart extends React.Component {
               <td>Remove Item</td>
             </tr>
             
-            {this.props.user.map(item => {
-              console.log("THE CART STATE: ", this.state)
+            {this.props.cart.map(item => {
+            {/* {this.props.user.map(item => {
               return item.OrderDetails.map(detail => {
                 let flower = this.props.flowers.filter(
                   flower => flower.id === detail.flowerId
@@ -94,13 +117,16 @@ export class Cart extends React.Component {
                   </tr>
                 );
               });
-            })}
+            })} */}
+            {this.props.user.order.id}
+
+
             <td></td>
             <td></td>
             <td></td>
             <td></td>
             <td colSpan="2" id="totalrow">
-              Total: {this.getTotalPrice()}
+              {/* Total: {this.getTotalPrice()} */}
             </td>
           </tbody>
         </table>
@@ -121,17 +147,18 @@ export class Cart extends React.Component {
 
 const mapState = state => {
   return {
-    user: state.user,
+    cart: state.cart,
     flowers: state.flowers,
     isLoggedIn: !!state.auth.id,
+    auth: state.id
   };
 };
 
 const mapDispatch = dispatch => {
   return {
-    getCart: id => {
-      dispatch(fetchCart(id));
-    },
+    // getCart: id => {
+    //   dispatch(fetchCart(id));
+    // },
     getFlowers: () => {
       dispatch(fetchFlowers());
     },

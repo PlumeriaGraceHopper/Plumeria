@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { logout } from "../store";
-import { fetchCart } from "../store/singleUser";
+import { fetchCart } from "../store/cart";
 import { me } from "../store";
 
 
@@ -18,7 +18,7 @@ class Navbar extends React.Component {
               {/* The navbar will show these links after you log in */}
               <NavLink to="/">Home</NavLink>
               <NavLink to="/flowers">All Flowers</NavLink>
-              <NavLink to={`users/${this.props.auth.id}/cart`}>Cart</NavLink>
+              <NavLink to={`/users/${this.props.auth.id}/cart`}>Cart</NavLink>
               <a href="#" onClick={this.props.handleClick}>
                 Logout
               </a>
@@ -30,8 +30,8 @@ class Navbar extends React.Component {
               <NavLink to="/flowers">All Flowers</NavLink>
               <NavLink to="/login">Login</NavLink>
               <NavLink to="/signup">Sign Up</NavLink>
-              {/* <NavLink to="/cart">Cart</NavLink> */}
-              {/* Need to built cart link for guest user - does not need userId in URL */}
+              <NavLink to="/cart">Cart</NavLink>
+
             </div>
           )}
         </nav>
