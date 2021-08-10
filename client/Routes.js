@@ -10,19 +10,21 @@ import Payment from "./components/Payment"
 import Confirm from "./components/OrderConfirmation"
 import { GuestCart } from "./components/GuestCart"
 import { me } from "./store";
-import { fetchCart } from "./store/singleUser";
+import { fetchCart } from "./store/cart";
 
 // COMPONENT
  
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData();
+    
+    // this.props.loadCart(this.props.auth.id)
   }
 
   render() {
 
-    console.log("ROUTES PROPS RENDER:",this.props)
-    console.log("ROUTES STATE RENDER:",this.state)
+    // console.log("ROUTES PROPS RENDER:",this.props)
+    // console.log("ROUTES STATE RENDER:",this.state)
     const { isLoggedIn } = this.props;
 
     return (
@@ -30,9 +32,9 @@ class Routes extends Component {
         {isLoggedIn ? (
           <Switch>
             <Route path="/" exact component={Home} />
-            <Route exact path="/flowers" render={(props)=> <AllFlowers {...props} />}/>
-            <Route path="/flowers/:id" render={()=><SingleFlower auth= {this.props.auth} />} />
-            <Route path="/users/:userId/cart" render={()=><Cart auth= {this.props.auth} />} />
+            <Route exact path="/flowers" component={AllFlowers}/>
+            <Route path="/flowers/:id" component={SingleFlower}/>
+            <Route path="/users/:userId/cart" component={Cart}/>
             <Route path="/payment" component={Payment} />
             <Route path = "/confirmation" component={Confirm} />
 
@@ -60,7 +62,7 @@ const mapState = state => {
     // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
     isLoggedIn: !!state.auth.id,
     auth: state.auth,
-    user: state.user
+    cart: state.cart
   };
 };
 

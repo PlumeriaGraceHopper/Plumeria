@@ -5,14 +5,14 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import auth from "./auth";
 import allFlowersReducer from "./allFlowers";
 import singleFlowerReducer from "./singleFlower";
-import singleUserReducer from "./singleUser"; 
+import cartReducer from "./cart"; 
 
 
 const reducer = combineReducers({
   auth,
   flowers: allFlowersReducer,
   flower: singleFlowerReducer,
-  user: singleUserReducer, // cart is accessed through singleUser
+  cart: cartReducer, 
 });
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))

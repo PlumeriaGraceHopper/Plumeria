@@ -1,15 +1,18 @@
 const { models: {User} } = require('../db')
 
-const requireToken = async ( req, res,next ) => {
+//intercepts token from axios call and spits out the user obj
+const requireToken = async ( req, res, next ) => {
     try {
         const token = req.headers.authorization
         const user = await User.findByToken(token)
         req.user = user
+        console.log("GATEKEEPER PASSED TOKEN")
         next()
     } catch (e) {
         next(e)
     }
 }
+
 
 module.exports = {
     requireToken
