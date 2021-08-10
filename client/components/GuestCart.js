@@ -21,11 +21,6 @@ export function GuestCart() {
     return decimalTotal;
   }
 
-  const handleClick = (index) => {
-    guestCart.splice(index, 1)
-    localStorage.setItem("cart", JSON.stringify(guestCart))
-  }
-
   return guestCart === null ? (
     "No items in cart."
   ) : (
@@ -72,7 +67,11 @@ export function GuestCart() {
                   </div>
                 </td>
                 <td>
-                <button type="button" onClick = {(index = idx) => {handleClick(index)}}> Delete Flower</button>
+                <button type="button" onClick = {() => {
+                    guestCart.splice(idx, 1) 
+                    localStorage.setItem("cart", JSON.stringify(guestCart))
+                
+                }}> Delete Flower</button>
                 </td>
               </tr>
             );
