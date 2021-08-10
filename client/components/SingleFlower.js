@@ -47,6 +47,7 @@ export class SingleFlower extends React.Component {
 
       //   this.props.addToOrder(userId, orderId, flowerId, quantity);
     } else {
+      this.setState({addedToCartMessage: ''})
       const { id, name, image, price } = this.props.flower;
       const quantity = this.state.selectedQuantity;
       const cartInLocalStorage = localStorage.getItem("cart");
@@ -72,7 +73,7 @@ export class SingleFlower extends React.Component {
             let pastQuantity = items[i].quantity
             console.log(parseInt(this.props.flower.quantity) - parseInt(pastQuantity))
             if (parseInt(quantity) > (parseInt(this.props.flower.quantity) - parseInt(pastQuantity))){
-              window.alert(`Low Stock: Please add ${parseInt(this.props.flower.quantity) - parseInt(pastQuantity)} or fewer.`)
+              this.setState({addedToCartMessage: `Low Stock: Please add ${parseInt(this.props.flower.quantity) - parseInt(pastQuantity)} or fewer.`});
               return;
             }
             items.splice(i, 1)
@@ -84,6 +85,7 @@ export class SingleFlower extends React.Component {
               quantity: parseInt(quantity) + parseInt(pastQuantity),
               totalStock: parseInt(this.props.flower.quantity)
             });
+            this.setState({addedToCartMessage: "Flower quantity updated!"});
             return;
           }
         }
@@ -95,9 +97,10 @@ export class SingleFlower extends React.Component {
           price: price,
           quantity: quantity,
           totalStock: parseInt(this.props.flower.quantity)
-        });
+        })
+        this.setState({addedToCartMessage: "Flower(s) added to cart!"});
       })();
-
+       
       localStorage.setItem("cart", JSON.stringify(items));
     }
   }
