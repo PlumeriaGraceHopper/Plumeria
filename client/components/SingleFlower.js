@@ -63,6 +63,7 @@ export class SingleFlower extends React.Component {
           window.alert("Please choose a quantity!")
           return;
         }
+        
         for (let i = 0; i < items.length; i++) {
           let existingId = items[i].id;
           if (existingId === id) {
@@ -73,6 +74,7 @@ export class SingleFlower extends React.Component {
           }
         }
         items.push({
+          
           id: id,
           image: image,
           name: name,

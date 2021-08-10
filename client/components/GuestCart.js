@@ -1,6 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-//this is where !isLoggedIn  handleSubmit() will go - so the handleSubmit() will call this function if the user isn't logged in. (will add logic for that later!)
 
 export function GuestCart() {
   let guestCart = JSON.parse(localStorage.getItem("cart"));
@@ -21,6 +21,11 @@ export function GuestCart() {
     return decimalTotal;
   }
 
+  const handleClick = (index) => {
+    guestCart.splice(index, 1)
+    localStorage.setItem("cart", JSON.stringify(guestCart))
+  }
+
   return guestCart === null ? (
     "No items in cart."
   ) : (
@@ -36,15 +41,16 @@ export function GuestCart() {
             <td>Remove Item</td>
           </tr>
 
-          {guestCart.map(item => {
+          {guestCart.map((item, idx) => {
+            //This for loop and renderQuant variable are to put the amount the user has in their cart into the editable dropdown
             let quantityArr = [];
             for (let i = 0; i <= item.quantity; i++) {
               quantityArr.push(i);
             }
-
             let renderQuant = quantityArr.map(num => (
               <option key={num}>{num}</option>
             ));
+
             return (
               <tr>
                 <td>
@@ -66,8 +72,7 @@ export function GuestCart() {
                   </div>
                 </td>
                 <td>
-                  <button>Delete Flower Someday</button>
-                    {/* This needs to be done with SPLICE; so I need the item index and i just CAN'T figure out how to get it from here because it's LATE and i'm TIRED */}
+                <button type="button" onClick = {(index = idx) => {handleClick(index)}}> Delete Flower</button>
                 </td>
               </tr>
             );
