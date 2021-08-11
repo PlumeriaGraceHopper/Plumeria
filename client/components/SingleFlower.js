@@ -30,29 +30,27 @@ export class SingleFlower extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     if (this.props.isLoggedIn) {
-      const cart = this.props.cart;
-      const orderId = this.props.cart.id;
+      // ----------------- logged in code below  --------
+      const cart = this.props.cart || 0
+      //const orderId = this.props.cart.id;
       const token = window.localStorage.token;
       const flowerId = parseInt(this.props.match.params.id);
       const quantity = parseInt(this.state.selectedQuantity);
-      const orderDetailArr = this.props.cart.OrderDetails.filter(element => {
-        if (element.flowerId === flowerId) {
-          return element.id;
-        }
-      });
-      const orderDetailId = orderDetailArr[0].id;
+
       //find if flowerid is in flowerid of order detail
-      if (cart && orderDetailId) {
-        //if both cart and flower UPDATE QUANT
-        //token, orderDetail, quantity
-        this.props.updateFlowerQuantity(token, orderDetailId, quantity);
-      } else if (cart) {
-        //if cart, add ORDERDETAIL
-        this.props.addToOrder(token, orderId, flowerId, quantity);
-      } else {
-        //if no cart
-        this.addCart(token, flowerId, quantity);
-      }
+      if (cart !==0) {
+        const OrderDetail = this.props.cart.OrderDetails.filter(element => { element.flowerId === flowerId ? element : 0 })// orderDetailArr will hold the matched flower in cart otherwise return 0
+        //const orderDetail = orderDetailArr[0]; //accessing the first value of the arr
+        console.log("this.props.cart.orderdetails", this.props.cart.OrderDetails[0].id, flowerId)
+        console.log("OrderDetail", OrderDetail)
+        if(orderDetail !== 0) {// && orderDetail not 0 aka UpdateOldFlower
+          this.props.updateFlowerQuantity(token, OrderDetail[0].id, quantity);
+        } else { //if only cart !==0 aka cart exists aka addNewFlower
+          this.props.addToOrder(token, cart.id, flowerId, quantity);
+        }
+       } else { //else if cart===0 aka cart not exists
+        this.props.addCart(token, flowerId, quantity);
+      }// -----------logged in code above --------------
     } else {
       //if a user is not logged in; guest cart;
       this.setState({ addedToCartMessage: "" });
@@ -114,6 +112,7 @@ export class SingleFlower extends React.Component {
   }
   ///////////////////END OF HANDLESUBMIT/////////////////////////////////////////
   render() {
+    console.log("RENDER CART", this.props.cart)
     const { name, image, price, description, quantity } = this.props.flower;
     let quantityArr = [];
     for (let i = 0; i <= quantity; i++) {
