@@ -19,14 +19,12 @@ function Cart(props) {
 
   function handleSubmitQuantity(e, token, orderDetailId, quant) {
     e.preventDefault()
-    console.log('in handle submit quant', token)
     props.updateItem(token, orderDetailId, quant)
     setValue(value + 1)
   }
 
   function handleSubmitDelete(e, token, orderDetailId) {
     e.preventDefault()
-    console.log('order ID in handle delete', orderDetailId)
     props.removeItem(token, orderDetailId)
     setValue(value + 1)
   }
