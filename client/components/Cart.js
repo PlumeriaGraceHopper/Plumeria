@@ -34,7 +34,6 @@ export class Cart extends React.Component {
       return item.quantity
     })
 
-   
     return (
       this.state.loading ? 
       <h1>No cart.</h1> :

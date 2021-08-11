@@ -20,7 +20,7 @@ export class SingleFlower extends React.Component {
   componentDidMount() {
     this.props.getFlower(this.props.match.params.id);
     this.props.getCart(window.localStorage.token);
-    console.log('PROPS IN SINGLE FLWR:', this.props)
+
   }
   handleChange(event) {
     this.setState({
