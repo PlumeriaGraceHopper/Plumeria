@@ -41,30 +41,6 @@ export class Cart extends React.Component {
     //let decimal = decimalTotal.findIndexOf('.')
     return decimalTotal
   }
-  // getTotalPrice(){
-  //   let total = 0
-
-  //   this.props.user.map(item => {
-  //     return item.OrderDetails.map(detail => {
-  //       let flower = this.props.flowers.filter(
-  //         flower => flower.id === detail.flowerId
-  //       );
-  //       return (
-  //         total += parseInt(flower.map(info => info.price).join(''))*parseInt(flower.map(info => info.quantity).join(''))
-  //       );
-  //     });
-  //   })
-
-  //   let dividedTotal = total/100
-
-  //   let decimalTotal = dividedTotal.toLocaleString('en-us', {
-  //     style: 'currency',
-  //     currency: 'USD'
-  //   })
-
-  //   //let decimal = decimalTotal.findIndexOf('.')
-  //   return decimalTotal
-  // }
 
   render() {
     console.log('PROPS IN CART:', this.props)
