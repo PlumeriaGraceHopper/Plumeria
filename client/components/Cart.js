@@ -1,15 +1,25 @@
 import React from "react";
 import { withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { fetchCart, removeItemFromCart } from "../store/cart";
+import { fetchCartId, removeItemFromCart } from "../store/cart";
 import { fetchFlowers } from "../store/allFlowers";
-
 import { me } from "../store";
 
 export class Cart extends React.Component {
-  componentDidMount() {
+  constructor(props) {
+    super(props)
+    this.state= {
+      loading: true
+    }
+  }
 
+   componentDidMount(){ 
+    this.props.getCart(this.props.auth.id);
     this.props.getFlowers();
+    console.log(this.props.auth.id)
+    console.log(this.props)
+   this.setState({loading: false})
+
   }
 
   handleSubmit(event, id) {
@@ -17,157 +27,50 @@ export class Cart extends React.Component {
     this.props.removeItem(id)
   }
 
-  getTotalPrice(){
-    let total = 0
-
-    this.props.cart.map(item => {
-      return item.OrderDetails.map(detail => {
-        let flower = this.props.flowers.filter(
-          flower => flower.id === detail.flowerId
-        );
-        return (
-          total += parseInt(flower.map(info => info.price).join(''))*parseInt(flower.map(info => info.quantity).join(''))
-        );
-      });
-    })
-
-    let dividedTotal = total/100
-
-    let decimalTotal = dividedTotal.toLocaleString('en-us', {
-      style: 'currency',
-      currency: 'USD'
-    })
-
-    //let decimal = decimalTotal.findIndexOf('.')
-    return decimalTotal
-  }
-  // getTotalPrice(){
-  //   let total = 0
-
-  //   this.props.user.map(item => {
-  //     return item.OrderDetails.map(detail => {
-  //       let flower = this.props.flowers.filter(
-  //         flower => flower.id === detail.flowerId
-  //       );
-  //       return (
-  //         total += parseInt(flower.map(info => info.price).join(''))*parseInt(flower.map(info => info.quantity).join(''))
-  //       );
-  //     });
-  //   })
-
-  //   let dividedTotal = total/100
-
-  //   let decimalTotal = dividedTotal.toLocaleString('en-us', {
-  //     style: 'currency',
-  //     currency: 'USD'
-  //   })
-
-  //   //let decimal = decimalTotal.findIndexOf('.')
-  //   return decimalTotal
-  // }
-
   render() {
-    console.log('PROPS IN CART:', this.props)
-    const { isLoggedIn } = this.props;
+    
+    const orderDetails = this.props.cart.OrderDetails
+    console.log(orderDetails)
+    const ord = orderDetails.map(item => {
+      return item.quantity
+    })
+    console.log('AMP ORDER:', ord)
+    // return (<h1>HI</h1> )
+   
     return (
-      <div>
-        <h1>your cart</h1>
-        {/* this should but does not work with this.props.user[0].map? 
-            double map is probably not idea, but we can refactor. 
-            now that we're getting the flowerId, how do we use that to render the flowers? */}
-        {/* maybe we can look at this in code review #2 if we have time! :)  */}
-        <table>
-          <tbody>
-            <tr>
-              <td></td>
-              <td>Flower</td>
-              <td>Quantity</td>
-              <td>Price</td>
-              <td>Edit</td>
-              <td>Remove Item</td>
-            </tr>
-            
-            {this.props.cart.map(item => {
-            {/* {this.props.user.map(item => {
-              return item.OrderDetails.map(detail => {
-                let flower = this.props.flowers.filter(
-                  flower => flower.id === detail.flowerId
-                );
-                let quantity = detail.quantity;
-                return (
-                  <tr key={detail.id}>
-                    <td>
-                      {flower.map(info => (
-                        <img className="orderImage" src={info.image} />
-                      ))}
-                    </td>
-                    <td> {flower.map(info => info.name)}</td>
-                    <td>{quantity}</td>
-                    <td>${flower.map(info => info.price*info.quantity) / 100} @ {flower.map(info => info.price/100)} per unit </td>
-                    <td>
-                      <div>
-                        <select name="quantity" id="quantity">
-                          <option value="0">0</option>
-                        </select>
-                      </div>
-                    </td>
-                    <td>
-                      <button onClick = {(e, id = detail.id) => {this.handleSubmit(e, id)}}> Delete Flower</button>
-                    </td>
-                  </tr>
-                );
-              });
-            })} */}
-            {this.props.user.order.id}
+      this.state.loading ? 
+      <h1>No cart.</h1> :
+      <h1>Yes cart</h1> 
+      
+      
+    )
 
-
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td colSpan="2" id="totalrow">
-              {/* Total: {this.getTotalPrice()} */}
-            </td>
-          </tbody>
-        </table>
-
-        {isLoggedIn ? (
-          <Link to="/payment">
-            <button className="button" type="button">Checkout</button>
-          </Link>
-        ) : (
-          <Link to="/login">
-            <button className="button" type="button">Sign In to Complete Order</button>
-          </Link>
-        )}
-      </div>
-    );
-  }
-}
+  } //end of render
+} // end of class component
 
 const mapState = state => {
   return {
-    cart: state.cart,
-    flowers: state.flowers,
+    auth: state.auth,
     isLoggedIn: !!state.auth.id,
-    auth: state.id
+    flower: state.flower,
+    cart: state.cart, //cart
   };
 };
 
 const mapDispatch = dispatch => {
   return {
-    // getCart: id => {
-    //   dispatch(fetchCart(id));
-    // },
+    getCart: (id) => {
+      dispatch(fetchCartId(id));
+    },
     getFlowers: () => {
       dispatch(fetchFlowers());
     },
-    loadInitialData() {
+    getMe: () => {
       dispatch(me());
     },
     removeItem: orderDetailId => {
       dispatch(removeItemFromCart(orderDetailId));
-    }
+    }, 
   };
 };
 

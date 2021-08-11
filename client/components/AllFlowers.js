@@ -8,7 +8,7 @@ export class AllFlowers extends React.Component {
 
 
   componentDidMount () {
-      this.props.getFlowers();
+      this.props.getFlowers()
   }
 
   

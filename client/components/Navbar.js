@@ -18,7 +18,7 @@ class Navbar extends React.Component {
               {/* The navbar will show these links after you log in */}
               <NavLink to="/">Home</NavLink>
               <NavLink to="/flowers">All Flowers</NavLink>
-              <NavLink to={`/users/${this.props.auth.id}/cart`}>Cart</NavLink>
+              <NavLink to={"/users/cart"}>Cart</NavLink>
               <a href="#" onClick={this.props.handleClick}>
                 Logout
               </a>
