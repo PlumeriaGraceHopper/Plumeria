@@ -40,16 +40,13 @@ export class SingleFlower extends React.Component {
 
       if (this.state.selectedQuantity === 0) {
         this.setState({addedToCartMessage: "Please select a quantity to add."})
+        return;
       }
 
       //find if flowerid is in flowerid of order detail
       if (cart !==0) {
         const OrderDetail = this.props.cart.OrderDetails.filter(element => { element.flowerId === flowerId })// orderDetailArr will hold the matched flower in cart otherwise return 0
-        //const orderDetail = orderDetailArr[0]; //accessing the first value of the arr
-        //console.log("this.props.cart.orderdetails", this.props.cart.OrderDetails[0].id, flowerId)
-       // console.log("OrderDetail", OrderDetail)
         if(OrderDetail.length > 0) {// && orderDetail not 0 aka UpdateOldFlower
-          console.log("ORDERDETAL", OrderDetail)
           this.props.updateFlowerQuantity(token, OrderDetail[0].id, quantity);
 
         } else { //if only cart !==0 aka cart exists aka addNewFlower
