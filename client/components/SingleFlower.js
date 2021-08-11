@@ -37,16 +37,20 @@ export class SingleFlower extends React.Component {
       const flowerId = parseInt(this.props.match.params.id);
       const quantity = parseInt(this.state.selectedQuantity);
 
+      if (this.state.selectedQuantity === 0) {
+        this.setState({addedToCartMessage: "Please select a quantity to add."})
+      }
+
       //find if flowerid is in flowerid of order detail
       if (cart !==0) {
-        const OrderDetail = this.props.cart.OrderDetails.filter(element => { element.flowerId === flowerId ? element : 0 })// orderDetailArr will hold the matched flower in cart otherwise return 0
-        //const orderDetail = orderDetailArr[0]; //accessing the first value of the arr
-        console.log("this.props.cart.orderdetails", this.props.cart.OrderDetails[0].id, flowerId)
-        console.log("OrderDetail", OrderDetail)
+        const orderDetail = this.props.cart.OrderDetails.filter(element => { element.flowerId === flowerId ? element : 0 })// orderDetailArr will hold the matched flower in cart otherwise return 0
+
         if(orderDetail !== 0) {// && orderDetail not 0 aka UpdateOldFlower
-          this.props.updateFlowerQuantity(token, OrderDetail[0].id, quantity);
+          this.props.updateFlowerQuantity(token, orderDetail[0].id, quantity);
+          this.setState({addedToCartMessage: "Flower quantity has been updated!"})
         } else { //if only cart !==0 aka cart exists aka addNewFlower
           this.props.addToOrder(token, cart.id, flowerId, quantity);
+          this.setState({ addedToCartMessage: "Flower(s) added to cart!" });
         }
        } else { //else if cart===0 aka cart not exists
         this.props.addCart(token, flowerId, quantity);
@@ -112,7 +116,6 @@ export class SingleFlower extends React.Component {
   }
   ///////////////////END OF HANDLESUBMIT/////////////////////////////////////////
   render() {
-    console.log("RENDER CART", this.props.cart)
     const { name, image, price, description, quantity } = this.props.flower;
     let quantityArr = [];
     for (let i = 0; i <= quantity; i++) {
