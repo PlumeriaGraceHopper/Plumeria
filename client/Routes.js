@@ -18,6 +18,8 @@ import { fetchFlowers } from "./store/allFlowers";
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData();
+    this.props.getCart(window.localStorage.token);
+    this.props.getFlowers()
   }
 
   render() {
@@ -57,6 +59,8 @@ const mapState = state => {
     // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
     isLoggedIn: !!state.auth.id,
     auth: state.auth,
+    cart: state.cart,
+    flowers: state.flowers
   };
 };
 
@@ -67,6 +71,9 @@ const mapDispatch = dispatch => {
     },
     getFlowers: () => {
       dispatch(fetchFlowers());
+    },
+    getCart: id => {
+      dispatch(fetchCart(id));
     },
   };
 };
