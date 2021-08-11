@@ -5,9 +5,7 @@ import { logout } from "../store";
 import { fetchCart } from "../store/cart";
 import { me } from "../store";
 
-
 class Navbar extends React.Component {
-
   render() {
     return (
       <div id="navbar">
@@ -31,7 +29,6 @@ class Navbar extends React.Component {
               <NavLink to="/login">Login</NavLink>
               <NavLink to="/signup">Sign Up</NavLink>
               <NavLink to="/cart">Cart</NavLink>
-
             </div>
           )}
         </nav>
@@ -47,7 +44,7 @@ class Navbar extends React.Component {
 const mapState = state => {
   return {
     isLoggedIn: !!state.auth.id,
-    auth: state.auth
+    auth: state.auth,
   };
 };
 

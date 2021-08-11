@@ -1,37 +1,34 @@
-import axios from 'axios'
+import axios from "axios";
 
 //constants
-const SET_FLOWERS= 'SET_FLOWERS'
-
+const SET_FLOWERS = "SET_FLOWERS";
 
 // action creators
-export const setFlowers = (flowers) => {
+export const setFlowers = flowers => {
   return {
-  type: SET_FLOWERS,
-  flowers
-  }
+    type: SET_FLOWERS,
+    flowers,
+  };
 };
-
-
 
 // thunk creator
 export const fetchFlowers = () => {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
-      const {data} = await axios.get('/api/flowers')
+      const { data } = await axios.get("/api/flowers");
       dispatch(setFlowers(data));
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
 };
 
 //reducer
-export default function allFlowersReducer ( state = [], action )  {
+export default function allFlowersReducer(state = [], action) {
   switch (action.type) {
     case SET_FLOWERS:
-      return action.flowers
+      return action.flowers;
     default:
-      return state
+      return state;
   }
-};
+}

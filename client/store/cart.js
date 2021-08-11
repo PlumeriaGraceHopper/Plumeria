@@ -59,7 +59,6 @@ export const updateFlower = (orderDetail) => {
 export const fetchCart = token => { //REMEMBER TO INPUT LOCALSTORAGE.TOKEN WHEREVER THIS THUNK IS BEING CALLED
   return async dispatch => {
     try {
-      console.log("THUNK TOKEN", token)
       const { data } = await axios.get(`/api/cart`, {headers: { Authorization: token }});
       dispatch(setCart(data));
     } catch (err) {
@@ -97,7 +96,6 @@ export const fetchAddCart = (token, flowerId, quantity) => { //REMEMBER LOCALSTO
     try {
       const { data } = await axios.post(`/api/cart/${flowerId}/${quantity}`,null, {headers: { Authorization: token }});
       dispatch(addCart(data));
-      console.log('This is the Thunk data:', data)
     } catch (err) {
       console.log(err);
     }
@@ -107,7 +105,6 @@ export const fetchAddCart = (token, flowerId, quantity) => { //REMEMBER LOCALSTO
 export const fetchAddToOrder = (token, OrderId, flowerId, quantity) => { //these don't use userID it because User association already exists unless we want to be extra secure
   return async dispatch => {
     try {
-      console.log("ADDTO ORDER THUNK")
       const { data } = await axios.post(`/api/cart/${OrderId}/${flowerId}/${quantity}`, null , {headers: { Authorization: token }});
       dispatch(addToOrder(data));
     } catch (err) {
@@ -119,7 +116,6 @@ export const fetchAddToOrder = (token, OrderId, flowerId, quantity) => { //these
 export const fetchUpdateFlower = (token, OrderDetail, quantity ) => { //same here
   return async dispatch => {
     try {
-      console.log("UPDATE FLOWERTHUNK ",OrderDetail)
       const { data } = await axios.put(`/api/cart/${OrderDetail}/${quantity}`, null, {headers: { Authorization: token }});
       dispatch(updateFlower(data));
     } catch (err) {

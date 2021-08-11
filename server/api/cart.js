@@ -3,55 +3,10 @@ const { models: { User, Order, Flower }} = require('../db')
 const { OrderDetail } = require('../db/models/OrderDetail')
 const {requireToken} = require('./gatekeepingMiddleware')
 module.exports = router
-//------USER ROUTES. NOT CURRENTLY IN USE-------
-// //get all users:
-// router.get('/', async (req, res, next) => {
-//   try {
-//     const users = await User.findAll({
-//       // explicitly select only the id and username fields - even though
-//       // users' passwords are encrypted, it won't help if we just
-//       // send everything to anyone who asks!
-//       attributes: ['id', 'email']
-//     })
-//     res.json(users)
-//   } catch (err) {
-//     next(err)
-//   }
-// })
-
-// //create/post 1 user:
-// router.post('/', async(req, res, next) => {
-//   try {
-//     res.status(201).send(await User.create(req.body));
-//   } catch (err){
-//       next(err)
-//   }
-// })
-
-// //get 1 user:
-// router.get('/:userId', async (req, res, next) => {
-//   try {
-//     const user = await User.findOne({
-//       where: {
-//         id: req.params.userId
-//       },
-//       include: Order
-//     })
-//     res.json(user)
-//   }
-//   catch (error) {
-//     next(error)
-//   }
-// })
-
-
-//EVERYTHING AHEAD OF YOU WILL NOW BE ACCESSED VIA */api/cart* 
-
 
 //api/cart , return false orders
 router.get('/', requireToken, async (req, res, next) => {
   try {
-    console.log("API/CART CHECKKKKK")
     const userId = req.user.id; // this returns the user from middleware
     const order = await Order.findOne({
       where: {
@@ -69,7 +24,6 @@ router.get('/', requireToken, async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
   try {
-    console.log("API/CART CHECKKKKK")
     const userId = req.params.id // this returns the user from middleware
     const order = await Order.findOne({
       where: {
@@ -124,17 +78,14 @@ router.post('/:OrderId/:flowerId/:quantity', requireToken, async (req, res, next
     const flower = await Flower.findByPk(req.params.flowerId)
     const quantity = req.params.quantity
 
-    console.log("IN POST ORDER", order,flower,quantity);
 
     const newOrderDetail = await OrderDetail.create({quantity})
-    // await user.addOrder(newOrder)
+
     await order.addOrderDetail(newOrderDetail)
 
     const orderDetail = await OrderDetail.findByPk(newOrderDetail.id)
     await flower.addOrderDetail(orderDetail)
     
-    console.log("SENDING ORDER DETAIL", newOrderDetail)
-
     res.send(newOrderDetail)
   }
   catch(err){next(err)}

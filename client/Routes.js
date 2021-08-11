@@ -6,31 +6,21 @@ import Home from "./components/Home";
 import AllFlowers from "./components/AllFlowers";
 import SingleFlower from "./components/SingleFlower";
 import Cart from "./components/Cart";
-import Payment from "./components/Payment"
-import Confirm from "./components/OrderConfirmation"
-import { GuestCart } from "./components/GuestCart"
+import Payment from "./components/Payment";
+import Confirm from "./components/OrderConfirmation";
+import { GuestCart } from "./components/GuestCart";
 import { me } from "./store";
 import { fetchCart } from "./store/cart";
-import { fetchFlowers} from "./store/allFlowers"
+import { fetchFlowers } from "./store/allFlowers";
 
 // COMPONENT
- 
+
 class Routes extends Component {
   componentDidMount() {
-    this.props.loadInitialData();  
-    // this.props.loadCart(window.localStorage.token);
-    // this.props.getFlowers();
-  
+    this.props.loadInitialData();
   }
 
-    
-    // this.props.loadCart(this.props.auth.id)
-  
-
   render() {
-
-    // console.log("ROUTES PROPS RENDER:",this.props)
-    // console.log("ROUTES STATE RENDER:",this.state)
     const { isLoggedIn } = this.props;
 
     return (
@@ -38,12 +28,11 @@ class Routes extends Component {
         {isLoggedIn ? (
           <Switch>
             <Route path="/" exact component={Home} />
-            <Route exact path="/flowers" component={AllFlowers}/>
-            <Route path="/flowers/:id" component={SingleFlower}/>
-            <Route path="/users/cart" component={Cart}/>
+            <Route exact path="/flowers" component={AllFlowers} />
+            <Route path="/flowers/:id" component={SingleFlower} />
+            <Route path="/users/cart" component={Cart} />
             <Route path="/payment" component={Payment} />
-            <Route path = "/confirmation" component={Confirm} />
-
+            <Route path="/confirmation" component={Confirm} />
           </Switch>
         ) : (
           <Switch>
@@ -52,14 +41,13 @@ class Routes extends Component {
             <Route path="/signup" component={Signup} />
             <Route exact path="/flowers" component={AllFlowers} />
             <Route path="/flowers/:id" component={SingleFlower} />
-            <Route path = "/cart" component={GuestCart} />
+            <Route path="/cart" component={GuestCart} />
           </Switch>
         )}
       </div>
     );
   }
 }
-
 
 // CONTAINER
 
@@ -69,16 +57,17 @@ const mapState = state => {
     // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
     isLoggedIn: !!state.auth.id,
     auth: state.auth,
-    // cart: state.cart
   };
 };
 
 const mapDispatch = dispatch => {
   return {
-    loadInitialData: () => {dispatch(me());},
-    // loadCart: (id) => {dispatch(fetchCart(id))},
-    getFlowers: () => {dispatch(fetchFlowers())}
-    
+    loadInitialData: () => {
+      dispatch(me());
+    },
+    getFlowers: () => {
+      dispatch(fetchFlowers());
+    },
   };
 };
 

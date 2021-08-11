@@ -18,7 +18,7 @@ export const fetchSingleFlower = id => {
       const { data } = await axios.get(`/api/flowers/${id}`);
       dispatch(setSingleFlower(data));
     } catch (err) {
-      console.log("error in fetchSingleFlower thunk:", err);
+      console.log(err);
     }
   };
 };
