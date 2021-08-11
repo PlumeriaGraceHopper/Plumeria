@@ -20,7 +20,6 @@ export class SingleFlower extends React.Component {
   componentDidMount() {
     this.props.getFlower(this.props.match.params.id);
     this.props.getCart(window.localStorage.token);
-
   }
   handleChange(event) {
     this.setState({
@@ -38,7 +37,6 @@ export class SingleFlower extends React.Component {
       const quantity = parseInt(this.state.selectedQuantity);
       const orderDetailArr = this.props.cart.OrderDetails.filter(element => {
         if (element.flowerId === flowerId) {
-          console.log("FLOWER CHECK", element.flowerId, flowerId);
           return element.id;
         }
       });
@@ -77,9 +75,6 @@ export class SingleFlower extends React.Component {
           let existingId = items[i].id;
           if (existingId === id) {
             let pastQuantity = items[i].quantity;
-            console.log(
-              parseInt(this.props.flower.quantity) - parseInt(pastQuantity)
-            );
             if (
               parseInt(quantity) >
               parseInt(this.props.flower.quantity) - parseInt(pastQuantity)

@@ -12,7 +12,11 @@ class Payment extends React.Component {
         <br />
 
         <label htmlFor="address">Address:</label>
-        <input name="address" value="10 Flower Ave., Flower City" readOnly></input>
+        <input
+          name="address"
+          value="10 Flower Ave., Flower City"
+          readOnly
+        ></input>
         <br />
 
         <label htmlFor="card">Card Number:</label>

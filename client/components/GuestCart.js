@@ -58,12 +58,17 @@ export function GuestCart(props) {
 
             return (
               <tr>
-{/* /////////////////Image, Name, Current Quantity, Price/////////////////// */}
+                {/* /////////////////Image, Name, Current Quantity, Price/////////////////// */}
                 <td>
-                 <Link to={`/flowers/${item.id}`}> <img className="orderImage" src={item.image} /> </Link>
+                  <Link to={`/flowers/${item.id}`}>
+                    {" "}
+                    <img className="orderImage" src={item.image} />{" "}
+                  </Link>
                 </td>
 
-                <td><Link to={`/flowers/${item.id}`}>{item.name}</Link></td>
+                <td>
+                  <Link to={`/flowers/${item.id}`}>{item.name}</Link>
+                </td>
 
                 <td>{item.quantity}</td>
 
@@ -82,7 +87,7 @@ export function GuestCart(props) {
                   })}
                   per unit
                 </td>
-{/* ///////////////////////Quantity Dropdowns//////////////////////// */}
+                {/* ///////////////////////Quantity Dropdowns//////////////////////// */}
                 {/*///////Quantity Dropdown///////*/}
                 <td>
                   <div id="quantitySelect">
@@ -120,7 +125,7 @@ export function GuestCart(props) {
                     Update Quantity
                   </button>
                 </td>
-{/* ///////////////////////Delete Button//////////////////////// */}
+                {/* ///////////////////////Delete Button//////////////////////// */}
                 <td>
                   <button
                     type="button"

@@ -1,8 +1,7 @@
-const Sequelize = require('sequelize')
-const db = require('../db')
+const Sequelize = require("sequelize");
+const db = require("../db");
 
-
-const Flower = db.define('flower', {
+const Flower = db.define("flower", {
   name: {
     type: Sequelize.STRING,
     unique: true,
@@ -14,19 +13,20 @@ const Flower = db.define('flower', {
   },
   description: {
     type: Sequelize.TEXT,
-    defaultValue: "Under Construction"
+    defaultValue: "Under Construction",
   },
   image: {
     type: Sequelize.TEXT,
-    defaultValue: "https://mauiplumeriagardens.com/431-home_default/lei-rainbow-plumeria-cutting.jpg"
+    defaultValue:
+      "https://mauiplumeriagardens.com/431-home_default/lei-rainbow-plumeria-cutting.jpg",
   },
-  color:{
-    type: Sequelize.STRING
+  color: {
+    type: Sequelize.STRING,
   },
-  quantity:{
+  quantity: {
     type: Sequelize.INTEGER,
-    defaultValue: 0
-  }
-})
+    defaultValue: 0,
+  },
+});
 
-module.exports = Flower
+module.exports = Flower;

@@ -5,20 +5,22 @@ import { connect } from "react-redux";
 
 class Home extends React.Component {
   render() {
-    const {email} = this.props.auth 
+    const { email } = this.props.auth;
     var name = email.substring(0, email.lastIndexOf("@"));
     name = name.charAt(0).toUpperCase() + name.slice(1);
-    return <div>
+    return (
+      <div>
         <h1>Welcome to Plumeria, {name} !</h1>
-    </div>;
+      </div>
+    );
   }
 }
 
 const mapState = state => {
   return {
     isLoggedIn: !!state.auth.id,
-    auth: state.auth
+    auth: state.auth,
   };
 };
 
-export default connect(mapState, null)(Home)
+export default connect(mapState, null)(Home);

@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 
 class Confirm extends React.Component {
   render() {
-    return <div>
+    return (
+      <div>
         <h1>Thank you for your order!</h1>
         <Link to="/">Return to Home Page</Link>
-    </div>;
+      </div>
+    );
   }
 }
 
-export default Confirm
+export default Confirm;

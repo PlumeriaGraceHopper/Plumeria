@@ -1,18 +1,16 @@
 //this is the access point for all things database related!
 
-const db = require('./db')
+const db = require("./db");
 
-const User = require('./models/User')
+const User = require("./models/User");
 
-const Flower = require('./models/Flower')
+const Flower = require("./models/Flower");
 
-const { Order, OrderDetail } = require('./models/OrderDetail')
+const { Order, OrderDetail } = require("./models/OrderDetail");
 
-
-
-User.hasMany(Order)
-Order.hasMany(OrderDetail)
-Flower.hasMany(OrderDetail)
+User.hasMany(Order);
+Order.hasMany(OrderDetail);
+Flower.hasMany(OrderDetail);
 
 module.exports = {
   db,
@@ -20,6 +18,6 @@ module.exports = {
     User,
     Flower,
     Order,
-    OrderDetail
+    OrderDetail,
   },
-}
+};
