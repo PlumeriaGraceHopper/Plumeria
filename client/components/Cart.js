@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { fetchCart, removeItemFromCart } from "../store/cart";
+import { fetchCart, removeItemFromCart, fetchUpdateFlower } from "../store/cart";
 import { fetchFlowers } from "../store/allFlowers";
 
 import { me } from "../store";
@@ -11,27 +11,27 @@ function Cart(props) {
   //setValue(value + 1)  <--- use to re-render
 
 
-//Planning to come back to this - currently crashes code. 
-//Seems to encounter same issue where it's trying to run before we actually get the code. I have a couple theories for solution but don't want to prioritize this right now. 
-//  function getTotal() {
-//   let total = 0;
+  const [selectedQuantity, setSelectedQuantity] = useState([1]);
 
-//   props.cart.OrderDetails.map(detail => {
-//     let flower = props.flowers.filter(
-//       flower => flower.id === detail.flowerId
-//     );
+  function handleChange(e) {
+    setSelectedQuantity(e.target.value);
+  }
 
-//     let quantity = detail.quantity;
-//     let flowerPrice = flower.map(i => i.price)
+  function handleSubmitQuantity(e, token, orderDetailId, quant) {
+    e.preventDefault()
+    console.log('in handle submit quant', token)
+    props.updateItem(token, orderDetailId, quant)
+    setValue(value + 1)
+  }
 
-//     let subTotal = quantity * flowerPrice
-//     total += subTotal
-//     })
-    
-//     return total
-//  }
+  function handleSubmitDelete(e, token, orderDetailId) {
+    e.preventDefault()
+    console.log('order ID in handle delete', orderDetailId)
+    props.removeItem(token, orderDetailId)
+    setValue(value + 1)
+  }
 
-//  let subTotal = getTotal()
+  //handleSubmit WORKS in that it hits the PUT route, but it's giving me a 401 Unauthorized error. 
 
 
   return (
@@ -49,12 +49,12 @@ function Cart(props) {
             let flower = props.flowers.filter(
               flower => flower.id === detail.flowerId
             );
-
             let quantity = detail.quantity;
+            let orderDetail = detail.id
 
             //quantityArr and renderQuant deal with the Update Quantity dropdown:
             let quantityArr = [];
-            for (let i = 1; i <= quantity; i++) {
+            for (let i = 1; i <= flower.map(i=>i.quantity); i++) {
               quantityArr.push(i);
             }
 
@@ -77,14 +77,19 @@ function Cart(props) {
                 </td>
                 <td>
                   <div>
-                    <select name="quantity" id="quantity">
+                  <select
+                      key={detail.id}
+                      name="selectedQuantity"
+                      value={selectedQuantity}
+                      onChange={e => handleChange(e)}
+                    >
                       {renderQuant}
                     </select>
-                    <button>Update Quantity</button>
+                    <button type="button" onClick={(e, token = (window.localStorage.token), orderDetailId = (detail.id), quant=selectedQuantity) => handleSubmitQuantity(e, token, orderDetailId, quant)}>Update Quantity</button>
                   </div>
                 </td>
                 <td>
-                  <button> Delete Flower</button>
+                  <button onClick={(e, token = (window.localStorage.token), orderDetailId = orderDetail) => handleSubmitDelete(e, token, orderDetailId)}> Delete Flower</button>
                 </td>
               </tr>
             );
@@ -124,9 +129,12 @@ const mapDispatch = dispatch => {
     loadInitialData() {
       dispatch(me());
     },
-    removeItem: orderDetailId => {
-      dispatch(removeItemFromCart(orderDetailId));
+    removeItem: (token, orderDetailId) => {
+      dispatch(removeItemFromCart(token, orderDetailId));
     },
+    updateItem: (token, orderDetail, quantity) => {
+      dispatch(fetchUpdateFlower(token, orderDetail, quantity))
+    }
   };
 };
 

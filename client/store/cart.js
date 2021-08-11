@@ -83,6 +83,7 @@ export const removeItemFromCart = (token, orderDetailId) => { //we access orderD
 
   return async dispatch => {
     try {
+      console.log('in remove item thunk', token, 'order id', orderDetailId)
       const { data } = await axios.delete(`/api/cart/${orderDetailId}`, {headers: { Authorization: token }});
       dispatch(removeItem(data));
     } catch (err) {
