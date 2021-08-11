@@ -14,10 +14,10 @@ export class Cart extends React.Component {
   }
 
    componentDidMount(){ 
-    this.props.getCart(this.props.auth.id);
+     
+    this.props.getCartId(this.props.auth.id);
     this.props.getFlowers();
-    console.log(this.props.auth.id)
-    console.log(this.props)
+ 
    this.setState({loading: false})
 
   }
@@ -30,12 +30,10 @@ export class Cart extends React.Component {
   render() {
     
     const orderDetails = this.props.cart.OrderDetails
-    console.log(orderDetails)
     const ord = orderDetails.map(item => {
       return item.quantity
     })
-    console.log('AMP ORDER:', ord)
-    // return (<h1>HI</h1> )
+
    
     return (
       this.state.loading ? 
@@ -59,7 +57,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    getCart: (id) => {
+    getCartId: (id) => {
       dispatch(fetchCartId(id));
     },
     getFlowers: () => {

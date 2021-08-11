@@ -136,6 +136,8 @@ export default function cartReducer(state = {}, action) { //REMEMBER STATE.CART 
 
     case SET_CART: 
       return action.order;
+      case SET_CART_ID: 
+      return action.order;
     case REMOVE_ITEM:
       return state.filter((orderDetailId) => orderDetailId.id !== action.orderDetailId.id )
     case ADD_CART:
