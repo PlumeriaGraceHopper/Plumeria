@@ -56,7 +56,7 @@ export const updateFlower = (orderDetail) => {
 };
 
 //thunk
-export const fetchCart = token => { //REMEMBER TO INPUT LOCALSTORAGE.TOKEN WHEREVER THIS THUNK IS BEING CALLED
+export const fetchCart = token => { 
   return async dispatch => {
     try {
       const { data } = await axios.get(`/api/cart`, {headers: { Authorization: token }});
@@ -79,7 +79,7 @@ export const fetchCartId = (id) => {
   };
 };
 
-export const removeItemFromCart = (token, orderDetailId) => { //we access orderDetails id not user id (can be changed for security)
+export const removeItemFromCart = (token, orderDetailId) => { 
 
   return async dispatch => {
     try {
@@ -92,7 +92,7 @@ export const removeItemFromCart = (token, orderDetailId) => { //we access orderD
   };
 };
 
-export const fetchAddCart = (token, flowerId, quantity) => { //REMEMBER LOCALSTORAGE.TOKEN INPUT in component
+export const fetchAddCart = (token, flowerId, quantity) => { 
   return async dispatch => {
     try {
       const { data } = await axios.post(`/api/cart/${flowerId}/${quantity}`,null, {headers: { Authorization: token }});
@@ -103,7 +103,7 @@ export const fetchAddCart = (token, flowerId, quantity) => { //REMEMBER LOCALSTO
   };
 };
 
-export const fetchAddToOrder = (token, OrderId, flowerId, quantity) => { //these don't use userID it because User association already exists unless we want to be extra secure
+export const fetchAddToOrder = (token, OrderId, flowerId, quantity) => { 
   return async dispatch => {
     try {
       const { data } = await axios.post(`/api/cart/${OrderId}/${flowerId}/${quantity}`, null , {headers: { Authorization: token }});
@@ -127,7 +127,7 @@ export const fetchUpdateFlower = (token, OrderDetail, quantity ) => { //same her
 
 
 //this is now going to be state.cart 
-export default function cartReducer(state = {}, action) { //REMEMBER STATE.CART IS NOW EMPTY OBJ {} 
+export default function cartReducer(state = {}, action) { 
   switch (action.type) {
 
 
@@ -143,14 +143,12 @@ export default function cartReducer(state = {}, action) { //REMEMBER STATE.CART 
       return {...state, OrderDetails: [...state.OrderDetails, action.orderDetail]} 
     case UPDATE_FLOWER: 
       return {
-        // state.map((robot) => {return robot.id === action.robot.id ? action.robot : robot});
         ...state, OrderDetails : OrderDetails.map((eachOrder) => {
           if (eachOrder.id === action.orderDetail.id) {
             eachOrder.quantity = action.orderDetail.quantity //or we can make it = action.orderDetail?
           } return eachOrder
         })
      }
-        //...state, OrderDetails: [...state.OrderDetails, action.orderDetail.quantity]}    
         default:
           return state;
     }
