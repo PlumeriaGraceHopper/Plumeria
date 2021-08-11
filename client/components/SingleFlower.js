@@ -38,6 +38,10 @@ export class SingleFlower extends React.Component {
       const flowerId = parseInt(this.props.match.params.id);
       const quantity = parseInt(this.state.selectedQuantity);
 
+      if (this.state.selectedQuantity === 0) {
+        this.setState({addedToCartMessage: "Please select a quantity to add."})
+      }
+
       //find if flowerid is in flowerid of order detail
       if (cart !==0) {
         const OrderDetail = this.props.cart.OrderDetails.filter(element => { element.flowerId === flowerId })// orderDetailArr will hold the matched flower in cart otherwise return 0
@@ -47,8 +51,10 @@ export class SingleFlower extends React.Component {
         if(OrderDetail.length > 0) {// && orderDetail not 0 aka UpdateOldFlower
           console.log("ORDERDETAL", OrderDetail)
           this.props.updateFlowerQuantity(token, OrderDetail[0].id, quantity);
+
         } else { //if only cart !==0 aka cart exists aka addNewFlower
           this.props.addToOrder(token, cart.id, flowerId, quantity);
+          this.setState({ addedToCartMessage: "Flower(s) added to cart!" });
         }
        } else { //else if cart===0 aka cart not exists
         this.props.addCart(token, flowerId, quantity);
@@ -115,7 +121,6 @@ export class SingleFlower extends React.Component {
   }
   ///////////////////END OF HANDLESUBMIT/////////////////////////////////////////
   render() {
-    console.log("RENDER CART", this.props.cart)
     const { name, image, price, description, quantity } = this.props.flower;
     let quantityArr = [];
     for (let i = 0; i <= quantity; i++) {
