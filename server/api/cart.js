@@ -67,6 +67,22 @@ router.get('/', requireToken, async (req, res, next) => {
   }
 })
 
+router.get('/:id', async (req, res, next) => {
+  try {
+    console.log("API/CART CHECKKKKK")
+    const userId = req.params.id // this returns the user from middleware
+    const order = await Order.findOne({
+      where: {
+        userId: userId
+      },
+    })
+    res.json(order)
+  }
+  catch (error) {
+    next(error)
+  }
+})
+
 //do we need user id here? should we need user id here? big security question... 
 router.delete('/:orderDetailId', requireToken, async (req, res, next) => {
   const orderDetailId = req.params.orderDetailId

@@ -2,6 +2,7 @@ import axios from "axios";
 
 //constant
 const SET_CART = "SET_CART";
+const SET_CART_ID = "SET_CART_ID";
 const REMOVE_ITEM = "REMOVE_ITEM";
 const ADD_CART = "ADD_CART"
 const ADD_TO_ORDER = "ADD_TO_ORDER" 
@@ -16,6 +17,15 @@ export const setCart = order => {
     
   };
 };
+
+export const setCartId = order => {
+  return {
+    type: SET_CART,
+    order,
+    
+  };
+};
+
 
 export const removeItem = orderDetailId => {
   return {
@@ -51,6 +61,18 @@ export const fetchCart = token => { //REMEMBER TO INPUT LOCALSTORAGE.TOKEN WHERE
     try {
       console.log("THUNK TOKEN", token)
       const { data } = await axios.get(`/api/cart`, {headers: { Authorization: token }});
+      dispatch(setCart(data));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+export const fetchCartId = (id) => { 
+  return async dispatch => {
+    try {
+
+      const { data } = await axios.get(`/api/cart/${id}`);
       dispatch(setCart(data));
     } catch (err) {
       console.log(err);
@@ -113,6 +135,8 @@ export default function cartReducer(state = {}, action) { //REMEMBER STATE.CART 
 
 
     case SET_CART: 
+      return action.order;
+      case SET_CART_ID: 
       return action.order;
     case REMOVE_ITEM:
       return state.filter((orderDetailId) => orderDetailId.id !== action.orderDetailId.id )
