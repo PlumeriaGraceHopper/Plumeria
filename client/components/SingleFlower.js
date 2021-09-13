@@ -9,6 +9,35 @@ import {
   fetchAddToOrder,
   fetchUpdateFlower,
 } from "../store/cart";
+
+import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import CardMedia from "@material-ui/core/CardMedia";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+import { Box } from "@material-ui/core";
+
+const styles = theme => ({
+  root: {
+    minWidth: 275,
+  },
+  bullet: {
+    display: "inline-block",
+    margin: "0 2px",
+    transform: "scale(0.8)",
+  },
+  title: {
+    fontSize: 14,
+  },
+  pos: {
+    marginBottom: 12,
+  },
+  media: {
+    height: 140,
+  },
+});
+
 export class SingleFlower extends React.Component {
   constructor(props) {
     super(props);
@@ -30,33 +59,37 @@ export class SingleFlower extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     if (this.props.isLoggedIn) {
-
       // ----------------- logged in code below  --------
-      const cart = this.props.cart || 0
+      const cart = this.props.cart || 0;
       //const orderId = this.props.cart.id;
       const token = window.localStorage.token;
       const flowerId = parseInt(this.props.match.params.id);
       const quantity = parseInt(this.state.selectedQuantity);
 
       if (this.state.selectedQuantity === 0) {
-        this.setState({addedToCartMessage: "Please select a quantity to add."})
+        this.setState({
+          addedToCartMessage: "Please select a quantity to add.",
+        });
         return;
       }
 
       //find if flowerid is in flowerid of order detail
-      if (cart !==0) {
-        const OrderDetail = this.props.cart.OrderDetails.filter(element => { element.flowerId === flowerId })// orderDetailArr will hold the matched flower in cart otherwise return 0
-        if(OrderDetail.length > 0) {// && orderDetail not 0 aka UpdateOldFlower
+      if (cart !== 0) {
+        const OrderDetail = this.props.cart.OrderDetails.filter(element => {
+          element.flowerId === flowerId;
+        }); // orderDetailArr will hold the matched flower in cart otherwise return 0
+        if (OrderDetail.length > 0) {
+          // && orderDetail not 0 aka UpdateOldFlower
           this.props.updateFlowerQuantity(token, OrderDetail[0].id, quantity);
-
-        } else { //if only cart !==0 aka cart exists aka addNewFlower
+        } else {
+          //if only cart !==0 aka cart exists aka addNewFlower
           this.props.addToOrder(token, cart.id, flowerId, quantity);
           this.setState({ addedToCartMessage: "Flower(s) added to cart!" });
         }
-       } else { //else if cart===0 aka cart not exists
+      } else {
+        //else if cart===0 aka cart not exists
         this.props.addCart(token, flowerId, quantity);
-      }// -----------logged in code above --------------
-
+      } // -----------logged in code above --------------g
     } else {
       //if a user is not logged in; guest cart;
       this.setState({ addedToCartMessage: "" });
@@ -125,28 +158,26 @@ export class SingleFlower extends React.Component {
     }
     let renderQuant = quantityArr.map(num => <option key={num}>{num}</option>);
     return (
-      <div id="singleflower">
-        <h2>{name}</h2>
-        <div>
-          <img src={image} />
-        </div>
-        <h3>${price / 100}</h3>
-        <h3>{description}</h3>
-        <div id="quantitySelect">
-          Quantity:
-          <select
-            name="selectedQuantity"
-            value={this.state.selectedQuantity}
-            onChange={e => this.handleChange(e)}
-          >
-            {renderQuant}
-          </select>
-        </div>
-        <button onClick={e => this.handleSubmit(e)} className="button">
-          Add To Cart
-        </button>
-        {this.state.addedToCartMessage}
-      </div>
+      <Box m={50} justify="center" alignItems="center">
+        <Card className={styles.title}>
+          <Button>{name}</Button>
+          <CardMedia component="img" height="400" image={image} title={name} />
+          <Typography>${price / 100}</Typography>
+          <h3>{description}</h3>
+          <div id="quantitySelect">
+            Quantity:
+            <select
+              name="selectedQuantity"
+              value={this.state.selectedQuantity}
+              onChange={e => this.handleChange(e)}
+            >
+              {renderQuant}
+            </select>
+          </div>
+          <Button onClick={e => this.handleSubmit(e)}>Add To Cart</Button>
+          <Typography>{this.state.addedToCartMessage}</Typography>
+        </Card>
+      </Box>
     );
   }
 }
