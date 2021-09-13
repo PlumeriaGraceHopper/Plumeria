@@ -55,7 +55,7 @@ export class SingleFlower extends React.Component {
         }
        } else { //else if cart===0 aka cart not exists
         this.props.addCart(token, flowerId, quantity);
-      }// -----------logged in code above --------------
+      }// -----------logged in code above --------------g
 
     } else {
       //if a user is not logged in; guest cart;

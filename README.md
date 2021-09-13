@@ -26,9 +26,9 @@ Grace Shopper project for Team 4, cohort 2106.
 ## Victory Conditions
 
 [X] Can browse a list of products  
-[ ] Add items to a cart  
+[X] Add items to a cart  
 [X] Checkout and "pay"  
-[ ] both as a guest and logged in  
+[X] both as a guest and logged in  
 
 
 
