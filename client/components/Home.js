@@ -1,17 +1,26 @@
 import React from "react";
 import { connect } from "react-redux";
+//Imported UI elements:
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import Box from "@material-ui/core/Box";
+import { withStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
+import { palette } from "@material-ui/system";
 
-//This is what renders ONLY IF A USER IS LOGGED IN. (Controlled via the Routes.js page - Home links to login page if user is not logged in, and to this page if they are logged in.)
 
 class Home extends React.Component {
   render() {
-    const { email } = this.props.auth;
-    var name = email.substring(0, email.lastIndexOf("@"));
-    name = name.charAt(0).toUpperCase() + name.slice(1);
+   
     return (
-      <div>
-        <h1>Welcome to Plumeria, {name} !</h1>
-      </div>
+      <Box mt={50}>
+      <img
+        src="images/potential_new_plumeria_autumn.png"
+        alt="logo"
+        width="100%"
+      />
+    </Box>
     );
   }
 }
