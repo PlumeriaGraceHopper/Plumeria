@@ -10,12 +10,23 @@ import { withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { palette } from "@material-ui/system";
 
+
+
 class Home extends React.Component {
+
+  chooseBackground (list) {
+    let choice = Math.floor(Math.random() * list.length)
+    return list[choice]
+  }
+
   render() {
     return (
       <Box mt={50}>
        <Link to="/flowers"> <img
-          src="images/potential_new_plumeria_sunset.png"
+          src={this.chooseBackground([
+            "images/potential_new_plumeria (1).png", "images/potential_new_plumeria (2).png", "images/potential_new_plumeria_autumn.png", "images/potential_new_plumeria_petals.png", "images/potential_new_plumeria_soft_blue.png", "images/potential_new_plumeria_soft_sun.png", "images/potential_new_plumeria_sunset.png", "images/potential_new_plumeria.png",
+          ]
+          )}
           alt="banner"
           width="100%"
         />
