@@ -18,6 +18,7 @@ const theme = createTheme({
       main: "#FFC0CB",
     },
   },
+  spacing: 1,
 });
 
 ReactDOM.render(
