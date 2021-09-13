@@ -79,8 +79,7 @@ class Navbar extends React.Component {
                   >
                      <img
                       src="images/plumera_text_only_logo.png"
-                      alt="logo"
-                      width="150"
+                      alt="plumeria_logo"
 
                     />
                   </Button>
@@ -130,8 +129,7 @@ class Navbar extends React.Component {
                   >
                     <img
                       src="images/plumera_text_only_logo.png"
-                      alt="logo"
-                      width="100%"
+                      alt="plumeria_logo"
                     />
                   </Button>
                   <Button
