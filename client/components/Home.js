@@ -44,6 +44,10 @@ class Home extends React.Component {
         />
         </Link>
         <Button href="/flowers">Click Here to Shop Our Flowers!</Button>
+        {this.props.isLoggedIn 
+          ? <Link to="/users/cart"><Button>Current Cart</Button></Link>
+          : <Link to="/login"><Button>Log In</Button></Link>
+        }
       </Box>
     );
   }
