@@ -10,17 +10,44 @@ import { withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { palette } from "@material-ui/system";
 
+
+
 class Home extends React.Component {
+
+  chooseBackground (list) {
+    let choice = Math.floor(Math.random() * list.length)
+    return list[choice]
+  }
+
   render() {
     return (
       <Box mt={50}>
        <Link to="/flowers"> <img
-          src="images/potential_new_plumeria_sunset.png"
+          src={this.chooseBackground([
+            "images/potential_new_plumeria (1).png", 
+            "images/potential_new_plumeria (2).png", 
+            "images/potential_new_plumeria_autumn.png", 
+            "images/potential_new_plumeria_petals.png", 
+            "images/potential_new_plumeria_soft_blue.png", 
+            "images/potential_new_plumeria_soft_sun.png", 
+            "images/potential_new_plumeria_sunset.png", 
+            "images/potential_new_plumeria.png",
+            "images/plumera_banner.png",
+            "images/plumera_banner (1).png",
+            "images/plumera_banner (2).png",
+            "images/plumera_banner (3).png",
+            "images/plumera_banner (4).png",
+          ]
+          )}
           alt="banner"
           width="100%"
         />
         </Link>
         <Button href="/flowers">Click Here to Shop Our Flowers!</Button>
+        {this.props.isLoggedIn 
+          ? <Link to="/users/cart"><Button>Current Cart</Button></Link>
+          : <Link to="/login"><Button>Log In</Button></Link>
+        }
       </Box>
     );
   }

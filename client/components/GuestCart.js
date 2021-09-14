@@ -1,6 +1,37 @@
 import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { fetchFlowers } from "../store/allFlowers";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
+import { Box, Button, Typography } from "@material-ui/core";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+
+import { me } from "../store";
+
+const StyledTableCell = withStyles(theme => ({
+  head: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  body: {
+    fontSize: 14,
+  },
+}))(TableCell);
+
+const StyledTableRow = withStyles(theme => ({
+  root: {
+    "&:nth-of-type(odd)": {
+      backgroundColor: theme.palette.action.hover,
+    },
+  },
+}))(TableRow);
 
 export function GuestCart(props) {
   let guestCart = JSON.parse(localStorage.getItem("cart"));
@@ -31,24 +62,27 @@ export function GuestCart(props) {
   }
 
   return guestCart === null ? (
-    "No items in cart."
+    <Box m={50}>
+      <Typography> "No items in cart."</Typography>
+    </Box>
   ) : (
-    <div>
-      <table>
-        <tbody>
-          <tr>
-            <td></td>
-            <td>Flower</td>
-            <td>Quantity</td>
-            <td>Price</td>
-            <td>Edit</td>
-            <td>Remove Item</td>
-          </tr>
-
-          {guestCart.map((item, idx) => {
+    <Box m={50}>
+      <TableContainer component={Paper}>
+        <Table aria-label="customized table">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell></StyledTableCell>
+              <StyledTableCell align="right">Flower Name</StyledTableCell>
+              <StyledTableCell align="right">Quantity</StyledTableCell>
+              <StyledTableCell align="right">Price</StyledTableCell>
+              <StyledTableCell align="right">Edit</StyledTableCell>
+              <StyledTableCell align="right">Remove Item</StyledTableCell>
+            </TableRow>
+          </TableHead>
+          {guestCart.map((info, idx) => {
             //This for loop and renderQuant variable are to put the amount the user has in their cart into the editable dropdown
             let quantityArr = [];
-            for (let i = 1; i <= item.totalStock; i++) {
+            for (let i = 1; i <= info.totalStock; i++) {
               quantityArr.push(i);
             }
 
@@ -57,108 +91,80 @@ export function GuestCart(props) {
             ));
 
             return (
-              <tr>
-                {/* /////////////////Image, Name, Current Quantity, Price/////////////////// */}
-                <td>
-                  <Link to={`/flowers/${item.id}`}>
-                    {" "}
-                    <img className="orderImage" src={item.image} />{" "}
-                  </Link>
-                </td>
-
-                <td>
-                  <Link to={`/flowers/${item.id}`}>{item.name}</Link>
-                </td>
-
-                <td>{item.quantity}</td>
-
-                <td>
-                  {((item.price * item.quantity) / 100).toLocaleString(
-                    "en-us",
-                    {
-                      style: "currency",
-                      currency: "USD",
-                    }
-                  )}
-                  <br />@<br />
-                  {(item.price / 100).toLocaleString("en-us", {
-                    style: "currency",
-                    currency: "USD",
-                  })}
-                  per unit
-                </td>
-                {/* ///////////////////////Quantity Dropdowns//////////////////////// */}
-                {/*///////Quantity Dropdown///////*/}
-                <td>
-                  <div id="quantitySelect">
+              <TableBody>
+                <StyledTableRow key={info.name}>
+                  <StyledTableCell component="th" scope="row">
+                    <Link to={`/flowers/${info.id}`}>
+                      <img className="orderImage" src={info.image} />
+                    </Link>
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    <Link to={`/flowers/${info.id}`}>{info.name}</Link>
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    {info.quantity}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    ${(info.price * info.quantity) / 100} @ ${info.price / 100}{" "}
+                    per unit
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
                     <select
-                      key={item.id}
+                      key={info.id}
                       name="selectedQuantity"
                       value={selectedQuantity}
                       onChange={e => handleChange(e)}
                     >
                       {renderQuant}
                     </select>
-                  </div>
+                    <Button
+                      onClick={() => {
+                        if (info.quantity === selectedQuantity) {
+                          return;
+                        }
 
-                  {/*///////Submit New Quantity Button///////*/}
-                  <button
-                    type="button"
-                    onClick={() => {
-                      if (item.quantity === selectedQuantity) {
-                        return;
-                      }
-
-                      guestCart.push({
-                        id: item.id,
-                        image: item.image,
-                        name: item.name,
-                        price: item.price,
-                        quantity: selectedQuantity,
-                        totalStock: item.totalStock,
-                      });
-                      guestCart.splice(idx, 1);
-                      localStorage.setItem("cart", JSON.stringify(guestCart));
-                      setValue(value + 1);
-                    }}
-                  >
-                    Update Quantity
-                  </button>
-                </td>
-                {/* ///////////////////////Delete Button//////////////////////// */}
-                <td>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      guestCart.splice(idx, 1);
-                      localStorage.setItem("cart", JSON.stringify(guestCart));
-                      setValue(value + 1);
-                    }}
-                  >
-                    Delete From Cart
-                  </button>
-                </td>
-              </tr>
+                        guestCart.push({
+                          id: info.id,
+                          image: info.image,
+                          name: info.name,
+                          price: info.price,
+                          quantity: selectedQuantity,
+                          totalStock: info.totalStock,
+                        });
+                        guestCart.splice(idx, 1);
+                        localStorage.setItem("cart", JSON.stringify(guestCart));
+                        setValue(value + 1);
+                      }}
+                    >
+                      Update Quantity
+                    </Button>
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        guestCart.splice(idx, 1);
+                        localStorage.setItem("cart", JSON.stringify(guestCart));
+                        setValue(value + 1);
+                      }}
+                    >
+                      <DeleteForeverIcon />
+                    </button>
+                  </StyledTableCell>
+                </StyledTableRow>
+              </TableBody>
             );
           })}
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td colSpan="2" id="totalrow">
-              Total: {getTotalPrice()}
-            </td>
-          </tr>
-        </tbody>
-      </table>
+          <Typography>Total: {getTotalPrice()}</Typography>
+        </Table>
+      </TableContainer>
       <Link to="/login">
-        <button className="button" type="button">
+        <Button className="button" type="button">
           Log In to Complete Order
-        </button>
+        </Button>
         {/* This should be done on the login page - if there is cart in local storage, add it to our database cart! This should also happen if they sign up. */}
       </Link>
-    </div>
+    </Box>
   );
 }
 
